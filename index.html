@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拆除物資源化互動簡報</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap">
+<style>
+/* Layout: a fixed 1920×1080 slide stage scaled to the window. Concrete-grey ground for content,
+   forest-green plates for chapters, ochre reserved for "the thing to remember", brick for the old linear way. */
+:root{
+  --ink:#16241B; --forest:#1E4A33; --forest-2:#2B6A47; --moss:#6E9F66; --moss-soft:#DDE9D8;
+  --ground:#ECEFE8; --card:#FAFBF7; --line:#CBD3C6; --mute:#54645A;
+  --ochre:#B9852A; --ochre-soft:#F2E5C6; --brick:#A9442C; --brick-soft:#F3DBD2;
+  --night:#0E1712; --on-dark:#EEF2EA; --on-dark-mute:#AFC2B3;
+  --f-display:"Noto Serif TC","Noto Serif CJK TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --f-num:"Barlow Condensed","Arial Narrow","Noto Sans TC",sans-serif;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--night);color:var(--ink);font-family:var(--f-body);overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-font-smoothing:antialiased}
+body.fs{padding-left:0;padding-right:0}
+#viewport{position:relative;width:100%;height:100%;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;
+  transform:translate(-50%,-50%) scale(var(--s,0.5));background:var(--ground);overflow:hidden;font-size:30px;line-height:1.5}
+button{font:inherit;color:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:4px solid var(--ochre);outline-offset:3px}
+
+/* ---------- slide base ---------- */
+.slide>aside.notes{display:none}
+.slide{position:absolute;inset:0;padding:84px 120px 176px;display:flex;flex-direction:column;gap:40px;
+  opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s;background:var(--ground)}
+.slide.active{opacity:1;visibility:visible;transition:opacity .45s ease}
+.slide.dark{background:var(--forest);color:var(--on-dark)}
+.hd{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-size:26px;font-weight:700;letter-spacing:.14em;color:var(--forest-2)}
+.dark .eyebrow{color:var(--ochre-soft)}
+h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;text-wrap:balance;letter-spacing:.01em}
+.lead{font-size:32px;color:var(--mute);max-width:1300px}
+.body{flex:1;min-height:0;display:flex;gap:56px}
+.col{display:flex;flex-direction:column;gap:28px;min-width:0}
+.grow{flex:1}
+.cap{font-size:24px;color:var(--mute)}
+.num{font-family:var(--f-num);font-weight:700;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.ph{width:100%;height:100%;object-fit:cover;border-radius:14px;background:#d9ddd5}
+.zoom{cursor:zoom-in}
+.fig{position:relative;border-radius:14px;overflow:hidden;background:#d9ddd5}
+.fig img{width:100%;height:100%;object-fit:cover}
+.fig .tag{position:absolute;left:16px;bottom:14px;background:rgba(14,23,18,.72);color:var(--on-dark);font-size:24px;padding:4px 14px;border-radius:6px}
+
+/* key message band */
+.key{position:absolute;left:120px;right:120px;bottom:78px;display:flex;align-items:center;gap:22px;font-size:32px;font-weight:700;line-height:1.3}
+.key b{flex:none;background:var(--ochre);color:#fff;font-size:24px;letter-spacing:.18em;padding:6px 14px 6px 18px;border-radius:6px}
+.dark .key{color:var(--on-dark)}
+
+/* stage chrome */
+#chrome{position:absolute;left:120px;right:120px;bottom:24px;height:30px;display:flex;align-items:center;gap:24px;font-size:24px;color:var(--mute);pointer-events:none;z-index:5}
+#chrome .bar{flex:1;height:6px;background:rgba(84,100,90,.18);border-radius:3px;position:relative;overflow:hidden}
+#chrome .fill{position:absolute;inset:0 auto 0 0;background:var(--ochre);border-radius:3px;transition:width .5s ease}
+#chrome .pg{font-family:var(--f-num);font-weight:600;font-size:26px;min-width:90px;text-align:right}
+#stage.on-dark #chrome{color:var(--on-dark-mute)}
+#stage.on-dark #chrome .bar{background:rgba(238,242,234,.18)}
+
+/* fragments */
+[data-f]{transition:opacity .5s ease,transform .5s ease}
+.slide:not(.static) [data-f]:not(.on){opacity:.0;transform:translateY(18px)}
+.dim-f [data-f]:not(.on){opacity:.28!important;transform:none!important}
+
+/* entrance */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.slide.active .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.slide.active .rise.d1{animation-delay:.08s}.slide.active .rise.d2{animation-delay:.16s}.slide.active .rise.d3{animation-delay:.24s}.slide.active .rise.d4{animation-delay:.32s}
+
+/* ---------- cover ---------- */
+#s-cover{padding:0;flex-direction:row;gap:0}
+#s-cover .l{width:1010px;padding:120px 80px 170px 120px;display:flex;flex-direction:column;justify-content:center;gap:36px}
+#s-cover .r{flex:1;position:relative}
+#s-cover .r img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#s-cover .r::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--forest) 0%,rgba(30,74,51,0) 30%)}
+#s-cover .kick{font-family:var(--f-display);font-weight:900;font-size:40px;color:var(--ochre-soft);letter-spacing:.3em}
+#s-cover h1{font-family:var(--f-display);font-weight:900;font-size:104px;line-height:1.12;letter-spacing:.02em}
+#s-cover .sub{font-size:32px;color:var(--on-dark-mute);line-height:1.5}
+#s-cover .chips{display:flex;flex-wrap:wrap;gap:12px}
+#s-cover .chips span{font-size:24px;border:1.5px solid rgba(238,242,234,.35);padding:4px 16px;border-radius:999px;color:var(--on-dark)}
+.hint{font-size:24px;color:var(--on-dark-mute);display:flex;gap:12px;align-items:center}
+.hint kbd{font-family:var(--f-num);font-size:24px;border:1.5px solid currentColor;border-radius:6px;padding:0 10px}
+
+/* ---------- quiz ---------- */
+.vote{display:inline-flex;align-items:center;gap:12px;font-size:26px;font-weight:700;color:var(--brick);letter-spacing:.1em}
+.vote i{width:14px;height:14px;border-radius:50%;background:var(--brick);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.opt{position:relative;text-align:left;background:var(--card);border:2.5px solid var(--line);border-radius:18px;padding:36px 38px 40px;display:flex;flex-direction:column;gap:22px;min-height:320px;transition:transform .2s,border-color .3s,background .3s,opacity .3s}
+.opt:hover{transform:translateY(-4px);border-color:var(--forest-2)}
+.opt .L{font-family:var(--f-num);font-size:96px;line-height:1;font-weight:700;color:var(--forest-2)}
+.opt .t{font-size:40px;font-weight:700;line-height:1.35}
+.opt .badge{position:absolute;top:24px;right:24px;font-size:24px;font-weight:700;padding:4px 14px;border-radius:6px;opacity:0;transform:scale(.8);transition:.35s}
+.opt.picked{border-color:var(--ochre)}
+.quiz.revealed .opt{opacity:.45}
+.quiz.revealed .opt.hit{opacity:1}
+.quiz.revealed .opt.hit .badge{opacity:1;transform:none}
+.opt.hit.b-brick{border-color:var(--brick);background:var(--brick-soft)}
+.opt.hit.b-forest{border-color:var(--forest-2);background:var(--moss-soft)}
+.b-brick .badge{background:var(--brick);color:#fff}.b-forest .badge{background:var(--forest-2);color:#fff}
+.answer{font-size:32px;line-height:1.55;background:var(--card);border-radius:16px;padding:26px 34px;border:2px solid var(--line);opacity:0;transform:translateY(16px);transition:.5s}
+.quiz.revealed .answer{opacity:1;transform:none}
+
+/* ---------- three numbers ---------- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1}
+.n-card{background:var(--card);border-radius:20px;padding:44px 40px;display:flex;flex-direction:column;gap:14px;border:2px solid var(--line);position:relative;overflow:hidden}
+.n-card .big{font-family:var(--f-num);font-weight:700;font-size:150px;line-height:.95;color:var(--forest)}
+.n-card .big small{font-family:var(--f-body);font-size:48px;font-weight:900;margin-left:8px}
+.n-card .lbl{font-size:38px;font-weight:900}
+.n-card .sub{font-size:28px;color:var(--mute);line-height:1.45}
+.n-card.gold{background:var(--ochre-soft);border-color:#E3CB92}
+.n-card.gold .big{color:var(--ochre)}
+.n-card .idx{position:absolute;top:30px;right:34px;font-family:var(--f-num);font-size:30px;color:var(--mute);font-weight:600}
+
+/* ---------- agenda ---------- */
+.agenda{display:flex;flex-direction:column;gap:0;border-top:2px solid var(--line)}
+.ag{display:grid;grid-template-columns:120px 520px 1fr 60px;align-items:center;gap:24px;padding:22px 8px;border:0;border-bottom:2px solid var(--line);background:none;text-align:left;transition:background .2s,padding .2s}
+.ag:hover{background:var(--card);padding-left:24px}
+.ag .no{font-family:var(--f-num);font-size:64px;font-weight:700;color:var(--forest-2);line-height:1}
+.ag .nm{font-family:var(--f-display);font-size:44px;font-weight:900}
+.ag .ds{font-size:30px;color:var(--mute)}
+.ag svg{width:40px;height:40px;color:var(--forest-2)}
+
+/* ---------- chapter divider ---------- */
+.chapter{justify-content:center;gap:34px;padding-left:180px}
+.chapter .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;filter:grayscale(.4)}
+.chapter .bg+.veil{position:absolute;inset:0;background:linear-gradient(100deg,var(--forest) 35%,rgba(30,74,51,.55) 100%)}
+.chapter>*:not(.bg):not(.veil){position:relative}
+.chapter .cn{font-family:var(--f-num);font-weight:700;font-size:220px;line-height:.8;color:var(--ochre);opacity:.95}
+.chapter .ct{font-family:var(--f-display);font-weight:900;font-size:96px;line-height:1.1}
+.chapter .cq{font-size:44px;line-height:1.5;max-width:1250px;color:var(--on-dark);border-left:0;font-weight:500}
+.chapter .cq em{font-style:normal;color:var(--ochre-soft);font-weight:900}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:14px}
+.tab{background:transparent;border:2px solid var(--line);border-radius:999px;padding:10px 30px;font-size:30px;font-weight:700;color:var(--mute);display:flex;gap:14px;align-items:baseline;transition:.25s}
+.tab .num{font-size:34px}
+.tab.on{background:var(--forest);border-color:var(--forest);color:var(--on-dark)}
+.panel{display:none;flex:1;min-height:0;gap:40px}
+.panel.on{display:flex;animation:rise .5s both}
+
+/* timeline panel */
+.tl-imgs{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:1060px;flex:none}
+.tl-imgs .fig{height:100%}
+.tl-txt{display:flex;flex-direction:column;gap:22px;justify-content:center}
+.tl-txt .yr{font-family:var(--f-num);font-size:120px;font-weight:700;line-height:.9;color:var(--ochre)}
+.tl-txt h3{font-size:40px;font-weight:900;line-height:1.3}
+.tl-txt p{font-size:30px;line-height:1.6;color:#2E3B33}
+
+/* before / after */
+.ba{position:relative;width:1080px;flex:none;border-radius:16px;overflow:hidden;user-select:none;touch-action:none;cursor:ew-resize;background:#ccd}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba .after{clip-path:inset(0 0 0 var(--x,50%))}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:4px;background:#fff;transform:translateX(-2px);box-shadow:0 0 12px rgba(0,0,0,.35)}
+.ba .handle::after{content:"";position:absolute;top:50%;left:50%;width:64px;height:64px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.ba .handle svg{position:absolute;top:50%;left:50%;width:40px;height:40px;transform:translate(-50%,-50%);z-index:1;color:var(--forest)}
+.ba .lab{position:absolute;top:18px;font-size:26px;font-weight:700;padding:4px 16px;border-radius:6px;background:rgba(14,23,18,.72);color:var(--on-dark)}
+.ba .lab.l{left:18px}.ba .lab.r{right:18px;background:var(--ochre);color:#fff}
+.ba.anim .after,.ba.anim .handle{transition:clip-path .9s ease,left .9s ease}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.feat figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.feat img{height:150px;width:100%;object-fit:cover;border-radius:10px}
+.feat figcaption{font-size:26px;font-weight:700}
+.talk{display:flex;flex-direction:column;gap:12px;font-size:28px}
+.talk div{display:flex;gap:14px;align-items:baseline}
+.talk b{color:var(--forest-2);white-space:nowrap}
+
+/* risk cards */
+.risk{display:flex;gap:26px;align-items:flex-start;background:var(--card);border-radius:16px;padding:26px 30px;border:2px solid var(--line);text-align:left;width:100%}
+.risk .ic{flex:none;width:76px;height:76px;border-radius:50%;background:var(--moss-soft);display:grid;place-items:center;color:var(--forest)}
+.risk .ic svg{width:42px;height:42px}
+.risk h3{font-size:38px;font-weight:900;line-height:1.2;margin-bottom:6px}
+.risk p{font-size:29px;color:#2E3B33;line-height:1.5}
+
+/* switch */
+.switch{display:inline-flex;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px;gap:4px;align-self:flex-start}
+.switch button{border:0;background:none;border-radius:999px;padding:10px 34px;font-size:30px;font-weight:700;color:var(--mute);transition:.3s}
+.switch button.on.old{background:var(--brick);color:#fff}
+.switch button.on.new{background:var(--forest);color:#fff}
+
+/* compare panels */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;min-height:0}
+.cbox{border-radius:20px;padding:34px 38px;display:flex;flex-direction:column;gap:22px;border:2.5px solid var(--line);background:var(--card);transition:opacity .5s,transform .5s,box-shadow .5s;min-height:0}
+.cbox h3{font-size:42px;font-weight:900;display:flex;gap:14px;align-items:center}
+.cbox h3 .pill{font-size:24px;padding:3px 14px;border-radius:6px;color:#fff}
+.cbox.old h3 .pill{background:var(--brick)}.cbox.new h3 .pill{background:var(--forest-2)}
+.cmp[data-state="0"] .cbox.new{opacity:.35}
+.cmp[data-state="1"] .cbox.old{opacity:.35}
+.cmp[data-state="1"] .cbox.new{box-shadow:0 18px 40px rgba(30,74,51,.18);border-color:var(--forest-2)}
+.cmp[data-state="0"] .cbox.old{border-color:var(--brick)}
+.chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chain span{font-size:28px;font-weight:700;padding:8px 18px;border-radius:10px;background:var(--ground)}
+.chain svg{width:30px;height:30px;color:var(--mute);flex:none}
+.cbox .note{font-size:28px;color:#2E3B33;line-height:1.5}
+.dest{display:flex;gap:14px}
+.dest span{font-size:28px;font-weight:700;padding:8px 20px;border-radius:10px;color:#fff}
+
+/* steps row */
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.st{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:22px 22px 26px;display:flex;flex-direction:column;gap:10px;text-align:left;transition:.35s;position:relative}
+.st .sn{font-family:var(--f-num);font-size:44px;font-weight:700;color:var(--mute);line-height:1}
+.st h3{font-size:34px;font-weight:900;line-height:1.2}
+.st p{font-size:25px;color:var(--mute);line-height:1.45}
+.st.cur{background:var(--forest);border-color:var(--forest);color:var(--on-dark);transform:translateY(-8px)}
+.st.cur .sn{color:var(--ochre-soft)}.st.cur p{color:var(--on-dark-mute)}
+.st.done .sn{color:var(--forest-2)}
+.clips{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.clip{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#000}
+.clip video,.clip img{width:100%;height:100%;object-fit:cover}
+.clip span{position:absolute;left:12px;top:10px;background:rgba(14,23,18,.75);color:var(--on-dark);font-size:24px;padding:2px 12px;border-radius:6px}
+
+/* flip cards */
+.flips{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;flex:1;min-height:0}
+.flip{perspective:1600px;border:0;background:none;padding:0;text-align:left;height:100%}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.flip.flipped .in{transform:rotateY(180deg)}
+.flip .fc,.flip .bc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.flip .fc{background:var(--card);border:2px solid var(--line)}
+.flip .fc img{height:58%;width:100%;object-fit:cover}
+.flip .fc .t{padding:18px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+.flip .fc h3{font-size:36px;font-weight:900}
+.flip .fc .q{margin-top:auto;font-family:var(--f-num);font-size:64px;font-weight:700;color:var(--ochre);line-height:1}
+.flip .bc{transform:rotateY(180deg);background:var(--forest);color:var(--on-dark);padding:26px 24px;gap:14px}
+.flip .bc .to{font-size:24px;letter-spacing:.14em;color:var(--ochre-soft);font-weight:700}
+.flip .bc h3{font-size:34px;font-weight:900;line-height:1.3}
+.flip .bc p{font-size:26px;line-height:1.5;color:var(--on-dark-mute)}
+.flip .bc img{margin-top:auto;height:150px;width:100%;object-fit:cover;border-radius:10px}
+
+/* stat list */
+.stat{display:flex;flex-direction:column;gap:2px;padding:18px 0;border-bottom:2px solid var(--line)}
+.stat .v{font-family:var(--f-num);font-size:84px;font-weight:700;line-height:1;color:var(--forest)}
+.stat .v small{font-family:var(--f-body);font-size:32px;font-weight:700;margin-left:6px}
+.stat .k{font-size:28px;color:var(--mute)}
+
+/* general vs fine */
+.gvf{display:flex;flex-direction:column;gap:20px;flex:1;min-height:0}
+.gvf .row{display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:center}
+.gvf .rl{font-size:30px;font-weight:900;line-height:1.3}
+.gvf .rl small{display:block;font-family:var(--f-num);font-size:36px;color:var(--mute);font-weight:600}
+.pchips{display:flex;gap:10px;flex-wrap:wrap}
+.pchips span{font-size:26px;font-weight:700;padding:8px 16px;border-radius:10px;background:var(--card);border:2px solid var(--line);transition:.4s}
+.pchips span.add{background:var(--moss-soft);border-color:var(--moss)}
+.pchips span.add.hide{display:none}
+.b5line{display:flex;align-items:center;gap:20px;font-size:32px;font-weight:700}
+.b5line .pill{color:#fff;padding:10px 24px;border-radius:12px;transition:background .5s}
+.stack{display:flex;height:84px;border-radius:12px;overflow:hidden;background:var(--card)}
+.stack div{height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:flex-basis .9s cubic-bezier(.3,.7,.2,1)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:24px;color:var(--mute);margin-top:12px}
+.legend i{display:inline-block;width:18px;height:18px;border-radius:4px;margin-right:8px;vertical-align:-2px}
+.burn{display:flex;align-items:baseline;gap:18px}
+.burn .v{font-family:var(--f-num);font-size:96px;font-weight:700;line-height:.9;transition:color .5s}
+.burn .u{font-size:36px;font-weight:900}
+.burn .k{font-size:28px;color:var(--mute)}
+
+/* pipeline */
+.pipe{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:0;padding-top:10px}
+.pipe::before{content:"";position:absolute;left:8%;right:8%;top:76px;height:8px;border-radius:4px;background:var(--line)}
+.pipe .prog{position:absolute;left:8%;top:76px;height:8px;border-radius:4px;background:var(--forest-2);width:0;transition:width .7s ease}
+.node{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;border:0;background:none;padding:0}
+.node .dot{width:140px;height:140px;border-radius:50%;background:var(--card);border:4px solid var(--line);display:grid;place-items:center;transition:.4s;position:relative;z-index:1}
+.node .dot span{font-family:var(--f-num);font-size:56px;font-weight:700;color:var(--mute)}
+.node h3{font-size:32px;font-weight:900}
+.node.done .dot{border-color:var(--forest-2)}
+.node.done .dot span{color:var(--forest-2)}
+.node.cur .dot{background:var(--forest);border-color:var(--forest);transform:scale(1.1)}
+.node.cur .dot span{color:var(--ochre-soft)}
+.pdetail{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:30px 40px;display:flex;gap:40px;align-items:center;min-height:170px}
+.pdetail .h{font-size:40px;font-weight:900;white-space:nowrap;color:var(--forest)}
+.pdetail .d{font-size:32px;line-height:1.5}
+
+/* checklist */
+.checks{display:flex;flex-direction:column;gap:12px}
+.ck{display:flex;align-items:center;gap:20px;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 22px;font-size:30px;font-weight:700;text-align:left;transition:.3s}
+.ck .box{flex:none;width:44px;height:44px;border-radius:10px;border:3px solid var(--line);display:grid;place-items:center;transition:.3s;color:#fff}
+.ck .box svg{width:28px;height:28px;opacity:0;transform:scale(.4);transition:.3s}
+.ck.ok{border-color:var(--moss)}
+.ck.ok .box{background:var(--forest-2);border-color:var(--forest-2)}
+.ck.ok .box svg{opacity:1;transform:none}
+.ck .n{font-family:var(--f-num);color:var(--mute);font-size:30px;width:26px}
+.ref{background:var(--card);border-radius:16px;padding:24px 30px;border:2px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.ref .t{font-size:24px;letter-spacing:.12em;color:var(--forest-2);font-weight:700}
+.ref p{font-size:28px;line-height:1.5}
+.ref mark{background:var(--ochre-soft);padding:0 4px}
+
+/* tests flow */
+.tflow{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.tf{display:flex;flex-direction:column;gap:12px;padding:24px 22px;border-radius:16px;background:var(--card);border:2px solid var(--line)}
+.tf .sn{font-family:var(--f-num);font-size:48px;font-weight:700;color:var(--ochre);line-height:1}
+.tf h3{font-size:32px;font-weight:900}
+.tf p{font-size:25px;color:var(--mute);line-height:1.45}
+
+/* supply chain */
+.sc{display:flex;flex-direction:column;gap:30px;flex:1}
+.lane{display:grid;grid-template-columns:260px 1fr 380px;gap:28px;align-items:center;padding:28px 30px;border-radius:20px;background:var(--card);border:2.5px solid var(--line);transition:.5s}
+.lane .who{font-size:34px;font-weight:900;line-height:1.3}
+.lane .who small{display:block;font-size:24px;color:var(--mute);font-weight:500}
+.lane .msg{font-size:27px;line-height:1.45;padding:16px 20px;border-radius:12px}
+.lane.old .msg{background:var(--brick-soft);color:#6E2A1A}
+.lane.new .msg{background:var(--moss-soft);color:#1C4430}
+.sc[data-state="0"] .lane.new{opacity:.35}
+.sc[data-state="1"] .lane.old{opacity:.35}
+.sc[data-state="1"] .lane.new{border-color:var(--forest-2);box-shadow:0 18px 40px rgba(30,74,51,.16)}
+.loop{display:flex;align-items:center;gap:6px;font-size:26px;font-weight:700;color:var(--forest-2);opacity:0;transition:.6s}
+.sc[data-state="1"] .loop{opacity:1}
+
+/* chart */
+.chart-wrap{position:relative;background:var(--card);border-radius:18px;border:2px solid var(--line);padding:18px 20px 10px}
+.chart-wrap svg{display:block;width:100%;height:auto}
+.chart-wrap text{font-family:var(--f-num);font-size:26px;fill:var(--mute)}
+.chart-wrap .lb{font-family:var(--f-body);font-size:24px}
+.ages{display:flex;gap:10px;margin-top:6px}
+.ages button{flex:1;border:2px solid var(--line);background:var(--ground);border-radius:10px;padding:6px 0;font-family:var(--f-num);font-size:30px;font-weight:600;color:var(--mute)}
+.ages button.on{background:var(--forest);border-color:var(--forest);color:var(--on-dark)}
+.readout{display:flex;flex-direction:column;gap:20px}
+.ro{border-radius:16px;padding:22px 26px;display:flex;flex-direction:column;gap:2px}
+.ro .k{font-size:26px;font-weight:700}
+.ro .v{font-family:var(--f-num);font-size:96px;line-height:1;font-weight:700}
+.ro .v small{font-size:34px;margin-left:6px;font-weight:600}
+.ro .vs{font-size:26px;font-weight:700}
+.ro.nat{background:#E1E6EC;color:#2B3D52}
+.ro.rec{background:var(--moss-soft);color:var(--forest)}
+
+/* mix compare */
+.mix{display:flex;flex-direction:column;gap:6px}
+.mx{display:grid;grid-template-columns:230px 1fr 110px;gap:18px;align-items:center;padding:8px 14px;border-radius:12px;transition:background .4s}
+.mx .k{font-size:28px;font-weight:700}
+.mx .bars{display:flex;flex-direction:column;gap:6px}
+.mx .bars div{height:22px;border-radius:5px;transition:width .9s ease}
+.mx .bars .a{background:#7F93A8}.mx .bars .b{background:var(--forest-2)}
+.mx .vals{font-family:var(--f-num);font-size:26px;line-height:1.15;text-align:right;color:var(--mute);font-weight:600}
+.mx.hl{background:var(--ochre-soft)}
+.mlegend{display:flex;gap:28px;font-size:24px;color:var(--mute)}
+.mlegend i{display:inline-block;width:18px;height:18px;border-radius:4px;margin-right:8px;vertical-align:-2px}
+.slump{background:var(--forest);color:var(--on-dark);border-radius:18px;padding:30px 32px;display:flex;flex-direction:column;gap:18px}
+.slump h3{font-size:32px;font-weight:900}
+.slump .seq{display:flex;align-items:flex-end;gap:16px}
+.slump .cone{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
+.slump .cone .bar{width:100%;background:var(--ochre-soft);border-radius:6px 6px 0 0}
+.slump .cone .num{font-size:40px}
+.slump .cone .t{font-size:24px;color:var(--on-dark-mute)}
+.slump p{font-size:26px;color:var(--on-dark-mute);line-height:1.5}
+
+/* badges */
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.bdg{display:flex;flex-direction:column;align-items:flex-start;gap:16px;background:var(--card);border:2.5px solid var(--line);border-radius:20px;padding:32px 34px;transition:.4s}
+.bdg .seal{width:96px;height:96px;border-radius:50%;background:var(--forest-2);display:grid;place-items:center;color:#fff}
+.bdg .seal svg{width:54px;height:54px}
+.bdg h3{font-size:36px;font-weight:900;line-height:1.25}
+.bdg .res{font-size:44px;font-weight:900;color:var(--forest-2)}
+.bdg p{font-size:26px;color:var(--mute)}
+.reports{display:flex;gap:18px;height:250px}
+.reports img{height:100%;width:auto;border-radius:8px;border:2px solid var(--line);background:#fff}
+.reports .ph{width:330px}
+
+/* equation */
+.eq{display:flex;flex-direction:column;gap:18px}
+.term{display:grid;grid-template-columns:72px 1fr auto;gap:22px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:22px 28px}
+.term .op{font-family:var(--f-num);font-size:72px;font-weight:700;color:var(--ochre);text-align:center;line-height:1}
+.term h3{font-size:32px;font-weight:900}
+.term p{font-size:26px;color:var(--mute);line-height:1.45}
+.term .v{font-family:var(--f-num);font-size:76px;font-weight:700;color:var(--forest);line-height:1;text-align:right}
+.term .v small{font-family:var(--f-body);font-size:30px;margin-left:4px}
+.term.total{background:var(--forest);border-color:var(--forest);color:var(--on-dark)}
+.term.total p{color:var(--on-dark-mute)}.term.total .v{color:var(--ochre-soft);font-size:104px}
+
+/* trucks */
+.trucks{display:grid;grid-template-columns:repeat(28,1fr);gap:6px 6px;align-content:start}
+.trucks svg{width:100%;height:auto;color:#C3CBBE;transition:color .3s}
+.trucks.go svg.lit{color:var(--forest-2)}
+.ratio{display:flex;flex-direction:column;gap:8px}
+.ratio .top{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+.ratio .top span{font-size:27px;font-weight:700;line-height:1.35}
+.ratio .top b{font-family:var(--f-num);font-size:56px;color:var(--forest);line-height:1}
+.ratio .track{height:20px;border-radius:10px;background:var(--line);overflow:hidden}
+.ratio .track div{height:100%;width:0;border-radius:10px;background:var(--forest-2);transition:width 1.1s cubic-bezier(.3,.7,.2,1)}
+.ratio p{font-size:24px;color:var(--mute)}
+
+/* cost table */
+.ctab{display:grid;grid-template-columns:300px 1fr 1fr 1.1fr;border-radius:18px;overflow:hidden;border:2px solid var(--line);background:var(--card)}
+.ctab>div{padding:20px 24px;font-size:27px;line-height:1.45;border-top:2px solid var(--line)}
+.ctab>.h{border-top:0;font-weight:900;font-size:28px;color:#fff}
+.ctab>.h.k0{background:var(--ink)}.ctab>.h.k1{background:var(--forest-2)}.ctab>.h.k2{background:#5D7287}.ctab>.h.k3{background:var(--ochre)}
+.ctab .rk{font-weight:900}
+.ctab .cc{font-weight:700;color:#6B4D12;background:#FBF4E2}
+
+/* video */
+.video{position:relative;display:block;border-radius:20px;overflow:hidden;flex:1;min-height:0}
+.video img{width:100%;height:100%;object-fit:cover}
+.video .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:160px;height:160px;border-radius:50%;background:var(--ochre);display:grid;place-items:center;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:transform .2s}
+.video:hover .play{transform:translate(-50%,-50%) scale(1.06)}
+.video .play svg{width:70px;height:70px;color:#fff;margin-left:10px}
+.video .vc{position:absolute;left:0;right:0;bottom:0;padding:26px 36px;background:linear-gradient(0deg,rgba(14,23,18,.85),rgba(14,23,18,0));color:var(--on-dark);font-size:30px;font-weight:700}
+
+/* principles */
+.prin{display:flex;flex-direction:column;gap:22px}
+.pr{display:grid;grid-template-columns:130px 1fr;gap:30px;align-items:center;padding:30px 36px;border-radius:18px;background:var(--card);border:2px solid var(--line)}
+.pr .no{font-family:var(--f-num);font-size:96px;font-weight:700;color:var(--ochre);line-height:.9}
+.pr h3{font-size:42px;font-weight:900;line-height:1.3}
+.pr p{font-size:28px;color:var(--mute);margin-top:6px}
+
+/* recall */
+.recall{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1}
+.rc{perspective:1600px;border:0;background:none;padding:0;text-align:left}
+.rc .in{position:relative;height:100%;transition:transform .8s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.rc.flipped .in{transform:rotateY(180deg)}
+.rc .fc,.rc .bc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:44px 40px;display:flex;flex-direction:column;gap:16px}
+.rc .fc{background:var(--card);border:2.5px dashed var(--line)}
+.rc .fc .q{font-size:40px;font-weight:900;line-height:1.35}
+.rc .fc .mark{margin-top:auto;font-family:var(--f-num);font-size:180px;font-weight:700;color:var(--line);line-height:.8}
+.rc .bc{transform:rotateY(180deg);background:var(--ochre-soft);border:2.5px solid #E3CB92}
+.rc .bc .big{font-family:var(--f-num);font-size:150px;font-weight:700;line-height:.95;color:var(--ochre)}
+.rc .bc .big small{font-family:var(--f-body);font-size:48px;font-weight:900;margin-left:6px}
+.rc .bc .lbl{font-size:36px;font-weight:900}
+.rc .bc .sub{font-size:28px;color:#5B4A22;line-height:1.45}
+
+/* thanks */
+#s-end{justify-content:center;align-items:flex-start;gap:30px}
+#s-end h2{font-size:120px;line-height:1.1}
+#s-end .sub{font-size:44px;color:var(--ochre-soft);font-weight:700}
+.refbtn{margin-top:20px;background:transparent;border:2px solid rgba(238,242,234,.4);color:var(--on-dark);font-size:28px;padding:10px 26px;border-radius:999px}
+.refs{display:none;flex-direction:column;gap:10px;font-size:25px;color:var(--on-dark-mute);background:rgba(14,23,18,.45);border-radius:16px;padding:24px 30px;max-width:1500px}
+.refs.on{display:flex}
+.refs a{color:var(--ochre-soft)}
+.refs .warn{font-size:24px;margin-top:6px}
+
+/* ---------- overlays (outside stage, normal web sizing) ---------- */
+#dock{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:rgba(14,23,18,.86);border:1px solid rgba(238,242,234,.18);padding:6px;border-radius:12px;z-index:30;transition:opacity .5s}
+#dock.idle{opacity:.12}
+#dock:hover{opacity:1}
+#dock button{width:40px;height:40px;border:0;border-radius:8px;background:transparent;color:var(--on-dark);display:grid;place-items:center}
+#dock button:hover,#dock button[aria-pressed="true"]{background:rgba(238,242,234,.14)}
+#dock svg{width:20px;height:20px}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;background:#0B120E;color:var(--on-dark);border-top:2px solid var(--ochre);z-index:25;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) calc(70px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font-size:17px;line-height:1.75;transform:translateY(100%);transition:transform .35s}
+#notes.on{transform:none}
+#notes .nh{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--on-dark-mute);letter-spacing:.08em;margin-bottom:6px}
+#notes .nb{max-width:72ch;white-space:pre-line}
+#menu{position:fixed;top:0;bottom:0;left:0;width:min(380px,88vw);background:#0B120E;color:var(--on-dark);z-index:40;overflow:auto;transform:translateX(-102%);transition:transform .35s;
+  padding:calc(18px + env(safe-area-inset-top,0px)) 16px 24px max(16px,env(safe-area-inset-left,0px))}
+#menu.on{transform:none}
+#menu h4{margin:18px 0 6px;font-size:13px;letter-spacing:.14em;color:var(--ochre-soft)}
+#menu button{display:flex;gap:10px;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:8px;font-size:15px;color:var(--on-dark)}
+#menu button span{font-family:var(--f-num);color:var(--on-dark-mute);min-width:22px}
+#menu button.cur{background:rgba(185,133,42,.25)}
+#menu button:hover{background:rgba(238,242,234,.08)}
+#menu .help{margin-top:20px;font-size:13px;color:var(--on-dark-mute);line-height:1.9}
+#menu kbd{font-family:var(--f-num);border:1px solid currentColor;border-radius:4px;padding:0 6px;margin-right:6px}
+#lightbox{position:fixed;inset:0;background:rgba(5,9,7,.94);z-index:50;display:none;align-items:center;justify-content:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:100%;max-height:100%;object-fit:contain}
+#black{position:fixed;inset:0;background:#000;z-index:60;display:none}
+#black.on{display:block}
+#rotate{position:fixed;left:0;right:0;top:calc(10px + env(safe-area-inset-top,0px));text-align:center;font-size:13px;color:var(--on-dark-mute);display:none;padding:0 16px}
+@media (orientation:portrait) and (max-width:700px){#rotate{display:block}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 32 20"><path d="M1 3h18v12H1zM19 7h7l5 5v3H19z" fill="currentColor"/><circle cx="7" cy="16.5" r="3" fill="currentColor"/><circle cx="25" cy="16.5" r="3" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div id="viewport">
+<div id="stage" role="region" aria-label="簡報">
+
+<!-- 01 COVER -->
+<section class="slide dark" id="s-cover" data-ch="0" data-title="封面">
+  <div class="l">
+    <div class="kick rise">循環營建</div>
+    <h1 class="rise d1">舊建築拆除物<br>資源化實例探討</h1>
+    <p class="sub rise d2">以豐譽營造「衛生福利部防疫中心興建工程」為案例</p>
+    <div class="chips rise d3"><span>新舊融合</span><span>拆除防護</span><span>以終為始・精細拆除</span><span>土石方資源化</span><span>CDC 實例</span></div>
+    <div class="hint rise d4"><kbd>→</kbd> 或 <kbd>空白鍵</kbd> 開始　·　<kbd>N</kbd> 講者備註　·　<kbd>G</kbd> 目錄</div>
+  </div>
+  <div class="r"><img src="img/image1.jpg" alt="衛生福利部防疫中心新建工程透視圖"></div>
+  <aside class="notes">開場：今天跟大家分享的是一個「拆房子」的故事，但重點不在拆，而是拆下來的東西去了哪裡。
+案例是豐譽營造承攬的衛生福利部防疫中心興建工程，也就是疾管署南港院區的新建案。
+接下來會先用一個小問題暖場。</aside>
+</section>
+
+<!-- 02 HOOK QUIZ -->
+<section class="slide" data-ch="0" data-steps="1" data-title="開場猜猜看">
+  <div class="hd">
+    <div class="vote rise"><i></i>請舉手作答</div>
+    <h2 class="rise d1">如果用一般方式拆除，本案 11,973 m³ 的混凝土與磚塊，最後會去哪裡？</h2>
+  </div>
+  <div class="quiz col grow" data-hit="1,2">
+    <div class="opts">
+      <button class="opt rise d2" data-opt="0"><span class="L">A</span><span class="t">送去掩埋場</span></button>
+      <button class="opt rise d3 b-brick" data-opt="1"><span class="badge">一般拆除</span><span class="L">B</span><span class="t">運到台北港，當填築料</span></button>
+      <button class="opt rise d4 b-forest" data-opt="2"><span class="badge">本案做法</span><span class="L">C</span><span class="t">加工成再生砂，做成新的混凝土</span></button>
+    </div>
+    <div class="answer">一般拆除：<b>100% 運往台北港填築</b>。本案：<b>100% 加工為再生機制砂</b>，其中 5,537 噸回到本案工地使用。今天就是要說明，B 是怎麼變成 C 的。</div>
+  </div>
+  <aside class="notes">請大家舉手：選 A 的？選 B 的？選 C 的？
+（按一下或點選項揭曉）
+一般拆除的做法，B5 類土石方 100% 送到台北港做填築；而這個案子，我們讓 100% 變成再生機制砂，還有 5,537 噸回到同一個工地使用。
+接下來 30 分鐘，就是在說 B 怎麼變成 C。</aside>
+</section>
+
+<!-- 03 THREE NUMBERS -->
+<section class="slide" data-ch="0" data-steps="3" data-title="記住三個數字">
+  <div class="hd"><div class="eyebrow rise">今天的重點</div><h2 class="rise d1">今天只要記住三個數字</h2></div>
+  <div class="three">
+    <div class="n-card" data-f="1"><span class="idx">1</span><div class="big"><span class="count" data-to="100">100</span><small>%</small></div><div class="lbl">B5 類土石方再利用</div><div class="sub">11,973 m³ 的混凝土與磚塊，全數加工為再生機制砂</div></div>
+    <div class="n-card" data-f="2"><span class="idx">2</span><div class="big"><span class="count" data-to="5537">5,537</span><small>噸</small></div><div class="lbl">再生砂回到本案工地</div><div class="sub">用於排樁與假設工程，取代同量的天然砂</div></div>
+    <div class="n-card gold" data-f="3"><span class="idx">3</span><div class="big"><span class="count" data-to="38.9" data-dec="1">38.9</span><small>噸</small></div><div class="lbl">預估最終需焚化</div><div class="sub">約占拆除物總重 31,613 噸的 0.12%</div></div>
+  </div>
+  <div class="key"><b>重點</b>拆除不是終點，是材料循環的起點</div>
+  <aside class="notes">今天的內容很多，但我希望大家只記住三個數字。（逐一揭曉）
+第一，100%：本案拆下的 B5 類土石方，也就是混凝土和紅磚，100% 再利用。
+第二，5,537 噸：做成的再生砂，有 5,537 噸回到我們自己的工地使用。
+第三，38.9 噸：經過精細拆除，預估最後真的需要焚化的只有約 38.9 噸，約占總重 31,613 噸的 0.12%。
+結尾時我會考大家。</aside>
+</section>
+
+<!-- 04 AGENDA -->
+<section class="slide" data-ch="0" data-title="五個段落">
+  <div class="hd"><div class="eyebrow rise">簡報架構</div><h2 class="rise d1">五個段落，從歷史走到工地</h2></div>
+  <div class="agenda rise d2">
+    <button class="ag" data-jump="ch1"><span class="no">01</span><span class="nm">新舊融合</span><span class="ds">這塊基地的過去，與新建築的設計</span><svg><use href="#i-arrow"/></svg></button>
+    <button class="ag" data-jump="ch2"><span class="no">02</span><span class="nm">拆除防護</span><span class="ds">粉塵、噪音、鄰損，先預防再施工</span><svg><use href="#i-arrow"/></svg></button>
+    <button class="ag" data-jump="ch3"><span class="no">03</span><span class="nm">以終為始・精細拆除</span><span class="ds">先想好材料的去處，再決定怎麼拆</span><svg><use href="#i-arrow"/></svg></button>
+    <button class="ag" data-jump="ch4"><span class="no">04</span><span class="nm">土石方資源化</span><span class="ds">B5 類土石方如何變成再生粒料</span><svg><use href="#i-arrow"/></svg></button>
+    <button class="ag" data-jump="ch5"><span class="no">05</span><span class="nm">CDC 實例</span><span class="ds">再生砂混凝土的驗證與回用成果</span><svg><use href="#i-arrow"/></svg></button>
+  </div>
+  <aside class="notes">今天分五段。點任一段可以直接跳過去（現場問答時好用）。</aside>
+</section>
+
+<!-- CH1 -->
+<section class="slide dark chapter" id="ch1" data-ch="1" data-title="第一章｜新舊融合">
+  <img class="bg" src="img/h_jz_bld.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">01</div>
+  <div class="ct rise d1">新舊融合</div>
+  <p class="cq rise d2">拆除前先問：<em>哪些記憶、構件與材料</em>，值得被延續？</p>
+  <aside class="notes">第一章。主軸不是只問「舊建築拆不拆」，而是問「哪些記憶、構件與材料值得被延續，如何延續？」
+從原有建築的歷史、使用記憶及構造價值出發，說明新舊建築的設計關係，以及拆除與新建之間的永續思考。</aside>
+</section>
+
+<section class="slide" data-ch="1" data-steps="2" data-title="百年防疫基地">
+  <div class="hd"><div class="eyebrow">第一章｜新舊融合</div><h2>百年防疫基地：從療養所到疾管署</h2></div>
+  <div class="tabs" data-tabs>
+    <button class="tab on" data-tab="0">日治 <span class="num">1915</span></button>
+    <button class="tab" data-tab="1">戰後 <span class="num">1965</span></button>
+    <button class="tab" data-tab="2">現代 <span class="num">2013</span></button>
+  </div>
+  <div class="panel on" data-panel="0">
+    <div class="tl-imgs"><div class="fig"><img class="zoom" src="img/h_jz_air.jpg" alt="1945 年航照圖"><span class="tag">1945 年航照</span></div><div class="fig"><img class="zoom" src="img/h_jz_bld.jpg" alt="1940 年完工之松山療養所病棟"><span class="tag">1940 年松山療養所病棟</span></div></div>
+    <div class="tl-txt"><div class="yr">1915</div><h3>臺灣第一個慢性傳染病療養場所</h3><p>成立錫口養生院，1925 年改稱松山療養所，1930、1940 年陸續增建。南港衛生大樓所在地，就是 1940 年增建的新館。</p></div>
+  </div>
+  <div class="panel" data-panel="1">
+    <div class="tl-imgs"><div class="fig"><img class="zoom" src="img/h_zh_air.jpg" alt="1967 年航照圖"><span class="tag">1967 年航照</span></div><div class="fig"><img class="zoom" src="img/h_zh_bld.jpg" alt="1965 年落成之南港衛生大樓"><span class="tag">1965 年南港衛生大樓落成</span></div></div>
+    <div class="tl-txt"><div class="yr">1965</div><h3>戰後疫病研究與防治的重要基地</h3><p>拆除部分日治病棟，以美援專款及省政府合款興建南港衛生大樓。同一時期，世界衛生組織宣布臺灣為「瘧疾根除區」。</p></div>
+  </div>
+  <div class="panel" data-panel="2">
+    <div class="tl-imgs"><div class="fig"><img class="zoom" src="img/h_xd_air.jpg" alt="2015 年航照圖"><span class="tag">2015 年航照</span></div><div class="fig"><img class="zoom" src="img/h_xd_bld.jpg" alt="南港衛生大樓現況"><span class="tag">南港衛生大樓現況</span></div></div>
+    <div class="tl-txt"><div class="yr">2013</div><h3>疫病研究與疫苗研發的防疫核心</h3><p>1999 年成立疾病管制局，2013 年更名為衛生福利部疾病管制署。南港衛生大樓原址，成為疾管署檢驗及疫苗研製中心。</p></div>
+  </div>
+  <p class="cap" style="position:absolute;right:120px;top:96px">圖文來源：劉培森建築師事務所《歷史建築修復計畫》</p>
+  <div class="key"><b>重點</b>這塊基地自 1915 年起，就是臺灣防疫的據點</div>
+  <aside class="notes">（點年份或按鍵切換三個時期）
+日治：1915 年成立錫口養生院，是臺灣第一個慢性傳染病療養場所，後來改稱松山療養所。
+戰後：1965 年拆除部分病棟，用美援和省府經費蓋了南港衛生大樓，正好是臺灣被 WHO 宣布為瘧疾根除區的年代。
+現代：疾管局、疾管署，南港衛生大樓成為檢驗及疫苗研製中心。
+所以我們拆的不只是一棟樓，而是一段公衛記憶。</aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="計畫前全區現況">
+  <div class="hd"><div class="eyebrow">第一章｜新舊融合</div><h2>計畫前全區現況</h2></div>
+  <div class="body">
+    <div class="fig" style="width:1240px;flex:none"><img class="zoom" src="img/site_overview.jpg" alt="基地區位、鳥瞰圖與各向現況照片" style="object-fit:contain;background:#fff"><span class="tag">點圖放大</span></div>
+    <div class="col grow" style="justify-content:center">
+      <div class="stat"><div class="k">基地周邊</div><div style="font-size:32px;font-weight:700;line-height:1.5">衛福部大樓（A 區）<br>食藥大樓（C 區）<br>捷運南港機廠<br>202 兵工廠</div></div>
+      <p style="font-size:30px;line-height:1.55">基地位於忠孝東路六段與昆陽街、東新街之間，四周都是使用中的建物與道路。</p>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>四周都是使用中的建物，拆除計畫必須把周邊一起納入</div>
+  <aside class="notes">這是計畫前的全區現況。基地被衛福部大樓、食藥大樓、捷運機廠、兵工廠和幾條道路包圍。
+這決定了下一章要講的：拆除不只是工地內部的事，外部衝擊要先管好。（點圖可放大給大家看）</aside>
+</section>
+
+<section class="slide" data-ch="1" data-steps="1" data-title="設計對話">
+  <div class="hd"><div class="eyebrow">第一章｜新舊融合</div><h2>設計對話：延續舊大樓的建築語彙</h2></div>
+  <div class="body">
+    <div class="ba" data-ba style="--x:100%">
+      <img src="img/h_xd_bld.jpg" alt="南港衛生大樓現況">
+      <img class="after" src="img/image20.jpg" alt="新建防疫中心立面透視">
+      <span class="lab l">舊：南港衛生大樓</span><span class="lab r">新：防疫中心</span>
+      <div class="handle"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="col grow">
+      <p style="font-size:30px;font-weight:700;line-height:1.45">沖孔白牆襯托、呼應入口兩廳，重新演繹四個歷史特色：</p>
+      <div class="feat">
+        <figure><img class="zoom" src="img/image16.jpg" alt="薄殼圓頂"><figcaption>薄殼圓頂</figcaption></figure>
+        <figure><img class="zoom" src="img/image17.jpg" alt="幾何柱頭"><figcaption>幾何柱頭</figcaption></figure>
+        <figure><img class="zoom" src="img/image18.jpg" alt="垂直、水平遮陽板"><figcaption>垂直、水平遮陽板</figcaption></figure>
+        <figure><img class="zoom" src="img/image19.jpg" alt="鏤空花磚"><figcaption>鏤空花磚</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>保留公衛記憶，同時啟動物質循環：建築的終點，就是再生的起點</div>
+  <aside class="notes">左邊這張可以拖拉（或按一下自動滑過去）：舊的南港衛生大樓，對照新的防疫中心。
+設計對話有三個層次：保留公衛記憶，舊建築語彙再利用；新舊設計融合，打造現代化防疫中心；啟動物質循環，建築終點即為再生起點。
+右邊是被延續的四個特色：薄殼圓頂、幾何柱頭、垂直水平遮陽板、鏤空花磚。</aside>
+</section>
+
+<!-- CH2 -->
+<section class="slide dark chapter" id="ch2" data-ch="2" data-title="第二章｜拆除防護">
+  <img class="bg" src="img/image25.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">02</div>
+  <div class="ct rise d1">拆除防護</div>
+  <p class="cq rise d2">拆除不只是工地內部作業，<em>外部衝擊要先預防、管理</em>。</p>
+  <aside class="notes">第二章，拆除工程的挑戰：環境、鄰房與社會責任。粉塵、噪音、振動、鄰房安全，如何透過施工規劃、監測、抑制措施與溝通降低衝擊。</aside>
+</section>
+
+<section class="slide" data-ch="2" data-steps="3" data-title="三大防護對策">
+  <div class="hd"><div class="eyebrow">第二章｜拆除防護</div><h2>三大防護對策</h2></div>
+  <div class="body">
+    <div class="col grow" style="justify-content:space-between">
+      <button class="risk" data-f="1" data-go="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg></span><span><h3>噪音防制</h3><p>採用低噪音機具，並以隔音布幕包覆。</p></span></button>
+      <button class="risk" data-f="2" data-go="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg></span><span><h3>粉塵抑制</h3><p>高壓微粒水霧，搭配防塵網全區覆蓋。</p></span></button>
+      <button class="risk" data-f="3" data-go="3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l6-4 6 4v13M2 21h20M8 12h4M8 16h4"/><path d="M20 4l-2 6"/></svg></span><span><h3>鄰損防範</h3><p>施工前現況鑑定、即時傾斜監測，並對歷史建物採預防碰撞措施。</p></span></button>
+    </div>
+    <div class="fig" style="width:760px;flex:none"><img class="zoom" src="img/image25.jpg" alt="拆除時以水霧抑制粉塵"><span class="tag">拆除同步噴灑水霧</span></div>
+  </div>
+  <div class="key"><b>重點</b>外部衝擊要先預防、管理，而不是發生後才處理</div>
+  <aside class="notes">三個主要的外部衝擊（逐一揭曉）：
+噪音：低噪音機具加隔音布幕。
+粉塵：高壓微粒水霧和防塵網，右邊這張就是拆除時同步噴霧。
+鄰損：施工前做現況鑑定、施工中即時傾斜監測；旁邊有歷史建物，所以另外有防碰撞措施。</aside>
+</section>
+
+<section class="slide" data-ch="2" data-steps="1" data-title="現場怎麼做">
+  <div class="hd"><div class="eyebrow">第二章｜拆除防護</div><h2>現場怎麼做：兩個例子</h2></div>
+  <div class="tabs" data-tabs>
+    <button class="tab on" data-tab="0">歷史建物保護</button>
+    <button class="tab" data-tab="1">臨路圍牆切割</button>
+  </div>
+  <div class="panel on" data-panel="0">
+    <div class="fig" style="width:640px;flex:none"><img class="zoom" src="img/image26.jpg" alt="歷史建物正面以透氣帆布美化"></div>
+    <div class="col grow">
+      <p style="font-size:31px;line-height:1.6">採用<b>重型施工架搭配頂棚</b>，預防破碎時物體墜落，並以<b>防塵網</b>減少污染。歷史建物正面以<b>透氣帆布</b>美化，記載過去、現在與未來。</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0"><div class="fig"><img class="zoom" src="img/image27.jpg" alt="重型施工架與防塵網"></div><div class="fig"><img class="zoom" src="img/image28.jpg" alt="施工架頂棚"></div></div>
+    </div>
+  </div>
+  <div class="panel" data-panel="1">
+    <div class="fig" style="width:640px;flex:none"><img class="zoom" src="img/image31.jpg" alt="西側昆陽街圍牆"><span class="tag">西側昆陽街</span></div>
+    <div class="col grow">
+      <p style="font-size:31px;line-height:1.6">西側昆陽街圍牆以<b>圓鋸機切割</b>拆除，降低臨路側的粉塵污染，同時減少對鄰近人行道的震動與衝擊。</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0"><div class="fig"><img class="zoom" src="img/image29.jpg" alt="圍牆切割後"></div><div class="fig"><img class="zoom" src="img/image30.jpg" alt="圓鋸機切割作業"></div></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>把減擾措施寫進施工計畫，而不是事後補救</div>
+  <aside class="notes">兩個現場例子（點分頁切換）：
+歷史建物保護：重型施工架加頂棚防墜落，防塵網減少污染；正面用透氣帆布美化，上面記載過去、現在與未來，讓路過的民眾也看得懂我們在做什麼。
+臨路圍牆：昆陽街這側用圓鋸機切割，不用敲打，粉塵和震動都小很多。</aside>
+</section>
+
+<!-- CH3 -->
+<section class="slide dark chapter" id="ch3" data-ch="3" data-title="第三章｜以終為始・精細拆除">
+  <img class="bg" src="img/image38.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">03</div>
+  <div class="ct rise d1">以終為始・精細拆除</div>
+  <p class="cq rise d2">先確定<em>材料要去哪裡</em>，再決定怎麼拆。</p>
+  <aside class="notes">第三章是今天的核心：以終為始。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-steps="1" data-title="傳統盲點 vs 循環思維">
+  <div class="hd"><div class="eyebrow">第三章｜以終為始・精細拆除</div><h2>從終端需求，倒推拆除方式</h2></div>
+  <div class="switch" data-switch><button class="old on" data-s="0">傳統盲點</button><button class="new" data-s="1">循環思維</button></div>
+  <div class="cmp" data-cmp data-state="0">
+    <div class="cbox old">
+      <h3><span class="pill">傳統</span>先拆，再找去處</h3>
+      <div class="chain"><span>先破壞</span><svg><use href="#i-arrow"/></svg><span>產出混合物</span><svg><use href="#i-arrow"/></svg><span>再找去處</span></div>
+      <div class="fig" style="flex:1;min-height:0"><img class="zoom" src="img/image35.jpg" alt="混雜的拆除廢棄物"></div>
+      <div class="dest"><span style="background:#8A7A5A">回填、臨時鋪面</span><span style="background:var(--brick)">焚化</span></div>
+      <p class="note">混雜程度高，處理成本高、再生價值低。</p>
+    </div>
+    <div class="cbox new">
+      <h3><span class="pill">循環</span>先問用途，再決定拆法</h3>
+      <p class="note">先確認<b>再使用、再生建材與合法收受端</b>的需求，再反推：</p>
+      <div class="chain"><span>拆除前盤點</span><svg><use href="#i-arrow"/></svg><span>材質辨識</span><svg><use href="#i-arrow"/></svg><span>污染控制</span><svg><use href="#i-arrow"/></svg><span>分類規格</span><svg><use href="#i-arrow"/></svg><span>流向追蹤</span></div>
+      <div class="fig" style="flex:1;min-height:0"><img class="zoom" src="img/image38.jpg" alt="分類暫置區"></div>
+      <p class="note">由終端「再生產品規格」，逆向訂出現場拆除與篩選標準。</p>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>先問材料要變成什麼，再決定怎麼拆、怎麼分</div>
+  <aside class="notes">左邊是傳統做法：先拆，拆完是一堆混合物，再找地方去。結果只能回填或焚化，處理成本高、再生價值低。
+一般拆房子只考慮時間要快、費用要低，所有東西混在一起變成營建混合物，不利資源化。
+（切換到循環思維）右邊是以終為始：先問這些材料下一個用途需要什麼規格、誰能合法收受，再倒推現場要怎麼盤點、辨識、分類、追蹤。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-steps="6" data-title="精細拆除六步驟">
+  <div class="hd"><div class="eyebrow">第三章｜以終為始・精細拆除</div><h2>精細拆除六步驟：從施工前準備到流向結案</h2></div>
+  <div class="steps" data-stepper>
+    <button class="st"><span class="sn">01</span><h3>調查與計畫</h3><p>建築與材料清冊、危害辨識、去向確認</p></button>
+    <button class="st"><span class="sn">02</span><h3>安全隔離</h3><p>水電停用、危害物確認、鄰房保護</p></button>
+    <button class="st"><span class="sn">03</span><h3>分層拆解</h3><p>先可再用構件，再設備與裝修，最後結構</p></button>
+    <button class="st"><span class="sn">04</span><h3>源頭分類</h3><p>材質分區、標示，避免污染與破損</p></button>
+    <button class="st"><span class="sn">05</span><h3>清運過磅</h3><p>合法車輛、文件、重量與影像紀錄</p></button>
+    <button class="st"><span class="sn">06</span><h3>後端驗證</h3><p>收受證明、加工資料、再利用與結案報告</p></button>
+  </div>
+  <div class="clips">
+    <div class="clip"><video src="img/image42.mp4" poster="img/image42.jpg" muted loop playsinline preload="none"></video><span>過往拆除方式</span></div>
+    <div class="clip"><video src="img/image40.mp4" poster="img/image40.jpg" muted loop playsinline preload="none"></video><span>天花板逐片拆卸</span></div>
+    <div class="clip"><video src="img/image41.mp4" poster="img/image41.jpg" muted loop playsinline preload="none"></video><span>玻璃完整拆下</span></div>
+    <div class="clip"><video src="img/image43.mp4" poster="img/image43.jpg" muted loop playsinline preload="none"></video><span>工地現場源頭分類</span></div>
+  </div>
+  <div class="key"><b>重點</b>精細拆除不是單一工法，而是「安全、材料保護、分類、追蹤」的整合管理</div>
+  <aside class="notes">精細拆除的六個步驟（逐步揭曉，也可以直接點）：
+調查與計畫、安全隔離、分層拆解、源頭分類、清運過磅、後端驗證。
+關鍵在第三步：把蓋房子的順序反過來，先拆可再用的構件，再拆設備與裝修，最後才拆結構。
+下面四段影片對照：最左邊是過往的拆除方式，後面三段是本案的天花板、玻璃拆卸和現場分類。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="分類暫置">
+  <div class="hd"><div class="eyebrow">第三章｜以終為始・精細拆除</div><h2>裝修材分類暫置：分類從工地現場開始</h2></div>
+  <div class="body">
+    <div class="fig" style="width:1080px;flex:none"><img class="zoom" src="img/image38.jpg" alt="工地分類暫置區，每區設有分類標示"></div>
+    <div class="col grow" style="justify-content:center;gap:34px">
+      <p style="font-size:32px;font-weight:700;line-height:1.5">依廢棄物類別，劃設暫置空間</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <span style="background:#2F6FA8;color:#fff;font-size:30px;font-weight:900;padding:12px 26px;border-radius:12px">可回收</span>
+        <span style="background:#5B6670;color:#fff;font-size:30px;font-weight:900;padding:12px 26px;border-radius:12px">不可回收</span>
+        <span style="background:var(--ochre);color:#fff;font-size:30px;font-weight:900;padding:12px 26px;border-radius:12px">有價物</span>
+      </div>
+      <p style="font-size:30px;line-height:1.6">木材、玻璃、塑膠、有價物各有分區。每區設立標牌或立架，標註色標與圖示，方便現場識別與管理。</p>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>看得懂的標示，才守得住分類</div>
+  <aside class="notes">拆除分類暫置區：依廢棄物類別分為木材、玻璃、塑膠及有價物。
+每區都有清楚的分類標示和看板，色標加圖示，讓不同包商的工人一看就懂，分類才不會在最後一哩路又混在一起。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-steps="5" data-title="猜猜材料的下一站">
+  <div class="hd"><div class="vote">小遊戲・請大家猜</div><h2>這些材料拆下來，下一站去哪裡？</h2></div>
+  <div class="flips" data-flips>
+    <button class="flip"><div class="in">
+      <div class="fc"><img src="img/m_paper1.jpg" alt="現場雜物分類整理"><div class="t"><h3>現場紙類</h3><span class="cap">雜物分類、打包</span><span class="q">?</span></div></div>
+      <div class="bc"><span class="to">下一站</span><h3>再生紙、衛生紙原料</h3><p>一般事務用紙與混合紙類分開打包；混合紙類做為再生紙板或瓦楞紙芯層原料。</p><img src="img/m_paper3.jpg" alt="紙類集中回收"></div>
+    </div></button>
+    <button class="flip"><div class="in">
+      <div class="fc"><img src="img/m_ceiling1.jpg" alt="拆除天花板板材"><div class="t"><h3>天花板</h3><span class="cap">矽酸鈣板、燈具</span><span class="q">?</span></div></div>
+      <div class="bc"><span class="to">下一站</span><h3>消毒後轉用到工務所</h3><p>板材分類堆置於棧板，經 UVC-LED 消毒，再用於工地工務所。</p><img src="img/m_ceiling3.jpg" alt="天花板材消毒"></div>
+    </div></button>
+    <button class="flip"><div class="in">
+      <div class="fc"><img src="img/m_wood1.jpg" alt="拆除系統櫃體"><div class="t"><h3>木裝修</h3><span class="cap">系統櫃體</span><span class="q">?</span></div></div>
+      <div class="bc"><span class="to">下一站</span><h3>木質碎料，再製或做燃料</h3><p>現場分類後送木森林公司，依物理性質做為木製品原料添加物或燃料原料。</p><img src="img/m_wood3.jpg" alt="木料集中回收"></div>
+    </div></button>
+    <button class="flip"><div class="in">
+      <div class="fc"><img src="img/m_glass1.jpg" alt="完整拆下玻璃"><div class="t"><h3>窗戶玻璃</h3><span class="cap">不破壞玻璃</span><span class="q">?</span></div></div>
+      <div class="bc"><span class="to">下一站</span><h3>重新熔製成玻璃產品</h3><p>去框拆除、依材質分類，送春池玻璃分色去雜質、磨碎熔燒，再製成各種產品。</p><img src="img/m_glass3.jpg" alt="玻璃分類回收"></div>
+    </div></button>
+    <button class="flip"><div class="in">
+      <div class="fc"><img src="img/m_pvc1.jpg" alt="PVC 地磚"><div class="t"><h3>PVC 地磚</h3><span class="cap">人工、機械分離</span><span class="q">?</span></div></div>
+      <div class="bc"><span class="to">下一站</span><h3>造粒成再生塑膠粒</h3><p>人工拆除、打包，送潔安環保進行造粒。</p><img src="img/m_pvc3.jpg" alt="PVC 地磚打包回收"></div>
+    </div></button>
+  </div>
+  <div class="key"><b>重點</b>分類，是為了讓每一類材料符合下一個用途的品質條件</div>
+  <aside class="notes">小遊戲：請大家猜，這五種材料拆下來會去哪裡？（點任一張卡翻面，或按鍵依序翻）
+紙類：事務用紙和混合紙分開打包，變成再生紙、衛生紙原料，混合紙做紙板或瓦楞紙芯層。
+天花板：矽酸鈣板經 UVC-LED 消毒，直接轉用到我們的工務所。
+木材：送木森林公司做成木質碎料，當木製品原料添加物或燃料。
+玻璃：不破壞玻璃、去框，送春池玻璃分色去雜質後重新熔燒。
+PVC 地磚：送潔安環保造粒。
+重點是：分類不是為了分開而已，是要讓每一類材料達到下一個用途的品質條件。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="CDC 拆除物質流">
+  <div class="hd"><div class="eyebrow">第三章｜以終為始・精細拆除</div><h2>CDC 拆除物質流：每一噸都有去處</h2></div>
+  <div class="body">
+    <div class="fig" style="width:1220px;flex:none;background:#fff"><img class="zoom" src="img/image39.jpg" alt="CDC 拆除物質流圖：從業主、設計、施工、拆除、清運、處理到再利用機構" style="object-fit:contain"><span class="tag">點圖放大</span></div>
+    <div class="col grow" style="gap:0;justify-content:center">
+      <div class="stat"><div class="v"><span class="count" data-to="16070">16,070</span><small>m²</small></div><div class="k">拆除樓地板面積</div></div>
+      <div class="stat"><div class="v"><span class="count" data-to="11973">11,973</span><small>m³</small></div><div class="k">B5 類土方（混凝土、磚）</div></div>
+      <div class="stat" style="border:0"><div class="v" style="color:var(--ochre)"><span class="count" data-to="99">99</span><small>%</small></div><div class="k">資源化目標（預估總重 31,613 噸）</div></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>每條物質流都要定義：來源、處理、品質門檻、合法去向、使用位置與證明文件</div>
+  <aside class="notes">這是 CDC 拆除的物質流，從業主、設計、施工、拆除、清運、處理到再利用機構，一路串起來。
+這次搭配的都是國內有好技術、好品管的廠商，也可以做為盤點全國各縣市營建剩餘物質資源化廠商、技術及量能的參考。
+預估物質總重 31,613 噸，目標 99% 資源化，營建廢棄物降到 1% 以內。</aside>
+</section>
+
+<section class="slide" data-ch="3" data-steps="1" data-title="一般拆除 vs 精細拆除">
+  <div class="hd"><div class="eyebrow">第三章｜以終為始・精細拆除</div><h2>同一棟建築，兩種拆法</h2></div>
+  <div class="switch" data-switch><button class="old on" data-s="0">一般拆除</button><button class="new" data-s="1">精細拆除（本案）</button></div>
+  <div class="gvf" data-gvf data-state="0">
+    <div class="row"><div class="rl">施工流程<small data-v="steps">4 步</small></div>
+      <div class="pchips"><span>傢俱及設備拆除</span><span class="add hide">精細拆除（天花板、鋁窗、玻璃、地坪、隔間、裝潢）</span><span>有價物拆除</span><span class="add hide">拆除物源頭分類</span><span>結構拆除（B5）</span><span data-v="last">營建廢棄物清運（B8）</span></div></div>
+    <div class="row"><div class="rl">B5 土石方<small>11,973 m³</small></div>
+      <div class="b5line"><span class="pill" data-v="b5" style="background:var(--brick)">100% 回填台北港</span><span data-v="b5n" style="font-size:28px;color:var(--mute);font-weight:500">只能做為填築料</span></div></div>
+    <div class="row" style="align-items:start"><div class="rl">裝修廢棄物<small>1,143 噸</small></div>
+      <div><div class="stack" data-stack>
+        <div data-k="mix" style="flex-basis:100%;background:#8A6E5A">營建混合物</div><div data-k="wood" style="flex-basis:0%;background:var(--forest-2)">廢木材 50%</div><div data-k="plas" style="flex-basis:0%;background:#3E7FA6">塑膠 10%</div><div data-k="glas" style="flex-basis:0%;background:#6FA9A0">玻璃</div><div data-k="re" style="flex-basis:0%;background:var(--ochre)"></div>
+      </div>
+      <div class="legend" data-leg><span><i style="background:#8A6E5A"></i>營建混合物</span><span><i style="background:var(--forest-2)"></i>木材 → 木質燃料</span><span><i style="background:#3E7FA6"></i>塑膠 → 再生塑膠粒</span><span><i style="background:#6FA9A0"></i>玻璃 4% → 玻璃原料</span><span><i style="background:var(--ochre)"></i>直接再利用 2%</span></div></div></div>
+    <div class="row"><div class="rl">預估需焚化</div>
+      <div class="burn"><span class="v" data-v="burn" style="color:var(--brick)">114.3</span><span class="u">噸</span><span class="k" data-v="burnk">全部進入混合物處理場，約 10% 焚化</span></div></div>
+  </div>
+  <div class="key"><b>重點</b>換一種拆法，焚化量從 114.3 噸降到約 38.9 噸，B5 從填海變成新材料</div>
+  <aside class="notes">同一棟建築、兩種拆法（點上方切換）。
+一般拆除只有四步：傢俱設備、有價物、結構、清運。B5 土石方 11,973 m³ 全部去台北港填築；裝修廢棄物 1,143 噸全部變成營建混合物，約 10%、114.3 噸要焚化。
+精細拆除多了兩步：精細拆除和源頭分類。B5 100% 做成再生機制砂，其中 27.7% 回到本案工程、其餘供其他工程使用；裝修廢棄物分出 50% 木材、10% 塑膠、4% 玻璃、2% 直接再利用，營建混合物剩 34%，約原本的三分之一，最後預估只剩約 38.9 噸需焚化，約占總物質重量 0.12%。</aside>
+</section>
+
+<!-- CH4 -->
+<section class="slide dark chapter" id="ch4" data-ch="4" data-title="第四章｜土石方資源化">
+  <img class="bg" src="img/image78.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">04</div>
+  <div class="ct rise d1">土石方資源化</div>
+  <p class="cq rise d2">拆下來的混凝土與磚，<em>變成新的粒料</em>。</p>
+  <aside class="notes">第四章，B5 類營建剩餘土石方如何重生。</aside>
+</section>
+
+<section class="slide" data-ch="4" data-steps="6" data-title="B5 資源化流程">
+  <div class="hd"><div class="eyebrow">第四章｜土石方資源化</div><h2>B5 資源化流程：從拆除塊料到再生粒料</h2></div>
+  <div class="pipe" data-pipe>
+    <div class="prog"></div>
+    <button class="node"><span class="dot"><span>1</span></span><h3>源頭分選</h3></button>
+    <button class="node"><span class="dot"><span>2</span></span><h3>進場檢查</h3></button>
+    <button class="node"><span class="dot"><span>3</span></span><h3>加工處理</h3></button>
+    <button class="node"><span class="dot"><span>4</span></span><h3>品質分級</h3></button>
+    <button class="node"><span class="dot"><span>5</span></span><h3>工程應用</h3></button>
+    <button class="node"><span class="dot"><span>6</span></span><h3>追蹤查證</h3></button>
+  </div>
+  <div class="pdetail" data-pdetail>
+    <span class="h">六站流程</span><span class="d">點任一站，看這一站要做什麼。</span>
+  </div>
+  <div class="key"><b>重點</b>加工完成只是中間產物，能否用於指定混凝土，仍須由標準、配比設計與試驗決定</div>
+  <template data-pd>
+    <i>源頭分選|混凝土、磚瓦分流，去除木材、塑膠、金屬等雜質。</i>
+    <i>進場檢查|核對來源文件，目視檢查，評估異物與污染。</i>
+    <i>加工處理|破碎、磁選剔除鋼筋、篩分；必要時水洗或其他處理。</i>
+    <i>品質分級|檢測粒徑、級配、密度、吸水率、含泥與雜質。</i>
+    <i>工程應用|依設計用途、規範及核准程序使用。</i>
+    <i>追蹤查證|記錄批次、產量、檢驗報告與實際使用位置。</i>
+  </template>
+  <aside class="notes">B5 資源化六站（逐站揭曉或直接點）：
+源頭分選：混凝土和磚瓦分流，把木材、塑膠、金屬挑掉。
+進場檢查：來源文件、目視檢查、異物污染評估。
+加工處理：破碎、磁選把殘留鋼筋吸走、篩分，必要時水洗。
+品質分級：粒徑、級配、密度、吸水率、含泥量。
+工程應用：依設計用途和核准程序使用。
+追蹤查證：批次、產量、檢驗報告、實際用在哪裡。
+要強調：加工完只是中間產物，能不能用在指定混凝土，要由標準、配比設計和試驗結果決定。</aside>
+</section>
+
+<section class="slide" data-ch="4" data-steps="1" data-title="合規與品管">
+  <div class="hd"><div class="eyebrow">第四章｜土石方資源化</div><h2>合規與品管：依 CNS 1240 逐項檢驗</h2></div>
+  <div class="body">
+    <div class="col" style="width:760px;flex:none">
+      <div class="checks" data-checks>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">1</span>篩分析</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">2</span>土塊與易碎顆粒比例</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">3</span>小於 75 微米之物質比例</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">4</span>煤與褐炭比例</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">5</span>水溶性氯離子比例</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">6</span>有機不淨物比例</button>
+        <button class="ck"><span class="box"><svg><use href="#i-check"/></svg></span><span class="n">7</span>健度</button>
+      </div>
+    </div>
+    <div class="col grow">
+      <div class="ref"><span class="t">建築物混凝土結構設計規範 26.4.1.2</span><p>常重粒料應符合 CNS 1240；<mark>再生粒料若具資料證明符合 CNS 1240 或 CNS 3691，經設計者與監造單位批准後，亦可使用</mark>。</p></div>
+      <div class="ref"><span class="t">本案施工規範 0305 章</span><p>混凝土之粗、細粒料應符合 CNS 1240 規定。</p></div>
+      <div class="fig" style="flex:1;min-height:0"><img class="zoom" src="img/image75.jpg" alt="機制砂與天然砂樣本比較"><span class="tag">細骨材樣本：機制砂與天然砂</span></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>再生粒料要過的關卡，和天然粒料一樣</div>
+  <aside class="notes">很多人擔心再生材料品質。我們的做法是：用跟天然粒料一樣的標準去檢驗。
+使用再生機制砂，依照建築物混凝土結構設計規範及工程會綱要規範，並依 CNS 1240 取樣試驗，七個項目逐項過關（按一下全部勾選，或逐項點）。
+規範本身也寫明：再生粒料只要有資料證明符合 CNS 1240，經設計者和監造單位批准就可以使用。</aside>
+</section>
+
+<section class="slide" data-ch="4" data-steps="6" data-title="試驗流程">
+  <div class="hd"><div class="eyebrow">第四章｜土石方資源化</div><h2>試驗流程：原料基線 → 試拌 → 性能驗證 → 核准使用</h2></div>
+  <div class="tflow">
+    <div class="tf" data-f="1"><span class="sn">1</span><h3>原料基線</h3><p>取樣與粒料物性檢驗</p></div>
+    <div class="tf" data-f="2"><span class="sn">2</span><h3>配比規劃</h3><p>設定替代率與對照組</p></div>
+    <div class="tf" data-f="3"><span class="sn">3</span><h3>試拌觀察</h3><p>工作性、含水修正、拌合均勻性</p></div>
+    <div class="tf" data-f="4"><span class="sn">4</span><h3>試體製作</h3><p>依規範取樣、養護與編號</p></div>
+    <div class="tf" data-f="5"><span class="sn">5</span><h3>性能試驗</h3><p>依齡期測抗壓強度等指標</p></div>
+    <div class="tf" data-f="6"><span class="sn">6</span><h3>判定與追蹤</h3><p>核准後使用，建立批次追溯</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;flex:1;min-height:0">
+    <div class="fig"><img class="zoom" src="img/image81.jpg" alt="預拌廠控制室試拌"><span class="tag">試拌</span></div>
+    <div class="fig"><img class="zoom" src="img/image84.jpg" alt="坍度試驗"><span class="tag">坍度試驗</span></div>
+    <div class="fig"><img class="zoom" src="img/image83.jpg" alt="抗壓試體"><span class="tag">抗壓試體</span></div>
+  </div>
+  <div class="key"><b>重點</b>每一批都有對照組、有試驗、有紀錄，才核准使用</div>
+  <aside class="notes">試驗流程六步（逐步揭曉）：先建立原料基線，再規劃配比、設定替代率和對照組，試拌觀察工作性，做試體、養護、編號，依齡期測抗壓強度，最後判定、核准、建立批次追溯。
+下面三張是實際試拌、坍度試驗和抗壓試體。</aside>
+</section>
+
+<!-- CH5 -->
+<section class="slide dark chapter" id="ch5" data-ch="5" data-title="第五章｜CDC 實例">
+  <img class="bg" src="img/image79.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">05</div>
+  <div class="ct rise d1">CDC 實例</div>
+  <p class="cq rise d2">B5 轉化為混凝土：<em>材料驗證與應用</em>。</p>
+  <aside class="notes">第五章，回到本案，看實際驗證數據和回用成果。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="1" data-title="骨材供應鏈">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>骨材從哪裡來：線性開採 vs. 循環再生</h2></div>
+  <div class="switch" data-switch><button class="old on" data-s="0">傳統線性</button><button class="new" data-s="1">循環再生</button></div>
+  <div class="sc" data-sc data-state="0">
+    <div class="lane old">
+      <div class="who">傳統預拌<small>線性模式</small></div>
+      <div class="chain"><span>河川疏濬、開採</span><svg><use href="#i-arrow"/></svg><span>砂石加工</span><svg><use href="#i-arrow"/></svg><span>預拌廠生產</span></div>
+      <div class="msg">痛點：加速自然資源枯竭、高排碳，無法解決城市廢料問題</div>
+    </div>
+    <div class="lane new">
+      <div class="who">宥辰興業<small>循環模式</small></div>
+      <div class="col" style="gap:14px">
+        <div class="chain"><span>既有建築／危老拆除</span><svg><use href="#i-arrow"/></svg><span>拆除精細分類</span><svg><use href="#i-arrow"/></svg><span>磊篩克砂（再生細骨材）</span><svg><use href="#i-arrow"/></svg><span>再生混凝土</span></div>
+        <div class="loop"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 11-2.3-5.6M20 4v4h-4"/></svg>再生混凝土蓋成的建築，未來拆除時又能再進入循環</div>
+      </div>
+      <div class="msg">價值：解決土石方去化痛點，資源循環再生</div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>城市裡的舊建築，就是下一棟建築的砂石來源</div>
+  <aside class="notes">傳統骨材是線性的：從河川開採、加工、送預拌廠。資源越挖越少、排碳高，城市裡的拆除廢料也沒有解決。
+（切換）循環模式：從既有建築或危老拆除的土石方出發，精細分類後做成磊篩克砂，也就是再生細骨材，再做成再生混凝土。這條鏈可以一直循環下去。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="1" data-title="強度猜猜看">
+  <div class="hd"><div class="vote"><i></i>請舉手作答</div><h2>用再生砂做的混凝土，強度表現如何？</h2></div>
+  <div class="quiz col grow" data-hit="1">
+    <div class="opts">
+      <button class="opt" data-opt="0"><span class="L">A</span><span class="t">一直都比天然砂弱</span></button>
+      <button class="opt b-forest" data-opt="1"><span class="badge">實測結果</span><span class="L">B</span><span class="t">早期較低，28 天達標，長期追上甚至超越</span></button>
+      <button class="opt" data-opt="2"><span class="L">C</span><span class="t">和天然砂完全一樣</span></button>
+    </div>
+    <div class="answer">7 天時再生砂組較低（234 vs 350 kgf/cm²），<b>28 天兩組都超過設計強度 280</b>；之後再生砂組持續成長，180 天起高於天然砂組。下一頁看完整曲線。</div>
+  </div>
+  <aside class="notes">再請大家舉手：再生砂混凝土的強度會怎樣？
+多數人會選 A。（揭曉）答案是 B：7 天時確實比較低，但 28 天兩組都超過 280 的設計強度，而且再生砂組會持續成長。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="5" data-title="抗壓強度曲線">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>抗壓強度：28 天達標，長期持續成長</h2></div>
+  <div class="body">
+    <div style="width:1130px;flex:none;display:flex;flex-direction:column;gap:10px">
+      <div class="chart-wrap">
+        <svg viewBox="0 0 1000 520" data-chart aria-label="兩種配比 7 至 365 天抗壓強度折線圖"></svg>
+      </div>
+      <div class="ages" data-ages></div>
+    </div>
+    <div class="readout col grow">
+      <div style="font-size:30px;font-weight:900" data-ro-age>齡期 7 天</div>
+      <div class="ro nat"><span class="k">傳統預拌（天然砂）</span><span class="v"><span data-ro-a>350</span><small>kgf/cm²</small></span></div>
+      <div class="ro rec"><span class="k">宥辰興業（再生砂）</span><span class="v"><span data-ro-b>234</span><small>kgf/cm²</small></span><span class="vs" data-ro-vs></span></div>
+      <p style="font-size:26px;color:var(--mute);line-height:1.5">再生砂的微觀多孔隙會持續釋放水分，讓水化反應持續進行，強度隨齡期提升。</p>
+      <p class="cap">資料：本案廠拌試驗（一般 280 配比，W/B = 0.44）</p>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>28 天實測全數超過設計強度 280 kgf/cm²</div>
+  <aside class="notes">（按鍵或點下方天數，曲線一段一段長出來）
+7 天：天然砂 350、再生砂 234，再生砂較低，但兩組都達設計值七成以上。
+28 天：471 對 383.7，兩組都超過 280 設計強度。
+56 天、91 天差距持續縮小，91 天 595 對 590 幾乎一樣。
+180 天再生砂 665 反超天然砂 615，365 天 700 對 625。
+原因是磊篩克砂的微觀孔隙會持續釋放水分，等於自己在養護。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="1" data-title="配比與坍度">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>配比幾乎相同，只把天然砂換成再生砂</h2></div>
+  <div class="body">
+    <div class="col" style="width:1100px;flex:none;gap:14px">
+      <div class="mlegend"><span><i style="background:#7F93A8"></i>傳統預拌（天然砂）</span><span><i style="background:var(--forest-2)"></i>宥辰興業（再生砂）</span><span>單位 kg/m³</span></div>
+      <div class="mix" data-mix></div>
+    </div>
+    <div class="col grow">
+      <div class="slump">
+        <h3>坍度經時保持（設計 20 ± 4 cm）</h3>
+        <div class="seq">
+          <div class="cone"><span class="num">24.0</span><div class="bar" style="height:120px"></div><span class="t">出料 0 分</span></div>
+          <div class="cone"><span class="num">23.0</span><div class="bar" style="height:115px"></div><span class="t">運輸 90 分</span></div>
+          <div class="cone"><span class="num">22.0</span><div class="bar" style="height:110px"></div><span class="t">澆置 120 分</span></div>
+        </div>
+        <p>再生砂組 120 分鐘仍維持 22.0 cm（天然砂組同為 22.0 cm），兩組皆合格，滿足長途運輸與泵送施工。</p>
+      </div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>材料換了，配比與工作性仍在同一水準</div>
+  <aside class="notes">左邊是 1 立方米的配比對照。水泥、爐石、飛灰維持 7:2:1，水膠比都是 0.44，膠結材只多 10 公斤；真正的差別只有細骨材：天然砂 927 公斤換成再生砂 870 公斤。（按一下標出這一列）
+拌合水多 5 公斤，是因為再生砂含紅磚、比較吸水。
+右邊是坍度：出料 24 公分，120 分鐘後仍有 22 公分，兩廠都合格，可以應付長途運輸和泵送。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="3" data-title="安全無毒驗證">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>安全驗證：第三方檢驗全數合格</h2></div>
+  <div class="badges">
+    <div class="bdg" data-f="1"><span class="seal"><svg><use href="#i-check"/></svg></span><h3>TCLP 溶出試驗<br>7 項重金屬</h3><span class="res">未檢出</span><p>SGS 檢驗</p></div>
+    <div class="bdg" data-f="2"><span class="seal"><svg><use href="#i-check"/></svg></span><h3>EN 71-3<br>歐盟有毒重金屬</h3><span class="res">未檢出</span><p>SGS 檢驗</p></div>
+    <div class="bdg" data-f="3"><span class="seal"><svg><use href="#i-check"/></svg></span><h3>石綿檢測<br>6 項</h3><span class="res">未檢出</span><p>SGS 檢驗</p></div>
+  </div>
+  <div class="reports">
+    <img class="zoom" src="img/image86.jpg" alt="SGS 檢驗報告">
+    <img class="zoom" src="img/image85.jpg" alt="SGS 檢驗報告">
+    <img class="zoom" src="img/image89.jpg" alt="SGS 檢驗報告">
+    <img class="zoom" src="img/image90.jpg" alt="SGS 檢驗報告">
+    <img class="ph zoom" src="img/image91.jpg" alt="現場取樣">
+    <img class="ph zoom" src="img/image92.jpg" alt="取樣標示">
+  </div>
+  <div class="key"><b>重點</b>再生材料要拿得出證明：TAF 實驗室與 SGS 檢驗全數合格</div>
+  <aside class="notes">大家最關心的：拆除物做成的材料安不安全？（逐一揭曉）
+TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒重金屬未檢出、6 項石綿未檢出。
+原物料也都由第三方 TAF 實驗室和 SGS 檢驗，報告可以點開放大。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="3" data-title="5,537 噸回到工地">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>5,537 噸再生砂，回到本案工地</h2></div>
+  <div class="body">
+    <div class="col" style="width:720px;flex:none;gap:16px">
+      <div class="fig" style="flex:1.3;min-height:0"><img class="zoom" src="img/image93.jpg" alt="工地平面：擋土排樁與施工便道位置"><span class="tag">回用位置</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;min-height:0">
+        <div class="fig"><img class="zoom" src="img/image94.jpg" alt="施工便道"></div><div class="fig"><img class="zoom" src="img/image95.jpg" alt="洗車台"></div><div class="fig"><img class="zoom" src="img/image96.jpg" alt="壓梁"></div>
+      </div>
+    </div>
+    <div class="eq grow">
+      <div class="term" data-f="1"><span class="op">1</span><div><h3>排樁工程</h3><p>預壘樁 613 支，機制砂 2,730 m³<br>依細骨材比重 1.67 換算</p></div><span class="v">4,559<small>噸</small></span></div>
+      <div class="term" data-f="2"><span class="op">+</span><div><h3>假設工程</h3><p>便道與洗車台 928.5 m³＋擋土壓梁 701.5 m³<br>＝1,630 m³ × 0.6</p></div><span class="v">978<small>噸</small></span></div>
+      <div class="term total" data-f="3"><span class="op" style="color:var(--ochre-soft)">=</span><div><h3>全案再生機制砂</h3><p>折合純砂體積 3,316 m³</p></div><span class="v"><span class="count" data-to="5537">5,537</span><small>噸</small></span></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>拆下來的混凝土，加工後又回到同一個工地</div>
+  <aside class="notes">5,537 噸是怎麼來的？（逐步算給大家看）
+第一塊是排樁：預壘樁 613 支，用再生機制砂拌 280 水泥砂漿灌注，機制砂 2,730 m³，用比重 1.67 換算約 4,559 噸。
+第二塊是假設工程：施工便道和洗車台 928.5 m³、擋土壓梁 701.5 m³，合計 1,630 m³，乘 0.6 需砂 978 噸。
+加起來 5,537 噸，折合純砂 3,316 m³，全部回到本案工地。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-steps="2" data-title="277 車次">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>少開採 5,537 噸天然砂，少跑 277 趟砂石車</h2></div>
+  <div class="body">
+    <div class="col" style="width:1000px;flex:none;gap:22px">
+      <div class="trucks" data-trucks></div>
+      <div style="display:flex;align-items:baseline;gap:16px"><span class="num" style="font-size:120px;line-height:.9;color:var(--forest)" data-truckn>0</span><span style="font-size:34px;font-weight:900">車次砂石車長途運輸，直接省下</span></div>
+    </div>
+    <div class="col grow" style="gap:30px;justify-content:center" data-ratios>
+      <div class="ratio"><div class="top"><span>天然細骨材置換率<br><small style="font-weight:500;color:var(--mute);font-size:24px">再生砂 5,537 噸 ÷ 需砂 5,537 噸</small></span><b>100%</b></div><div class="track"><div data-w="100"></div></div></div>
+      <div class="ratio"><div class="top"><span>循環再生工程體積比<br><small style="font-weight:500;color:var(--mute);font-size:24px">(排樁 2,730＋假設 1,630 m³) ÷ B5 11,973 m³</small></span><b>36.4%</b></div><div class="track"><div data-w="36.4"></div></div></div>
+      <div class="ratio"><div class="top"><span>純砂閉環回用率<br><small style="font-weight:500;color:var(--mute);font-size:24px">純砂 3,315.6 m³ ÷ B5 11,973 m³</small></span><b>27.7%</b></div><div class="track"><div data-w="27.7"></div></div></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>資源循環同時減少開採、運輸與碳排</div>
+  <aside class="notes">（按一下）每一個小卡車代表一趟砂石車。如果用傳統方式，要另外開採購買 5,537 噸天然河砂，增加約 277 車次長途運輸；本案直接省下。
+（再按一下）三個比率：預壘樁與假設工程的天然細骨材 100% 被置換；循環再生的工程體積占 B5 總量 36.4%；實際提煉回工地的純砂占 27.7%。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-title="成本與 ESG">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>成本與 ESG：成本相當，價值提升</h2></div>
+  <div class="ctab rise d1">
+    <div class="h k0">比較構面</div><div class="h k1">宥辰興業（磊篩克砂）</div><div class="h k2">傳統預拌（天然砂）</div><div class="h k3">比較結果</div>
+    <div class="rk">膠結材成本</div><div>430 kg/m³（水泥 301＋爐石 86＋飛灰 43）</div><div>420 kg/m³（水泥 295＋爐粉 84＋飛灰 41）</div><div class="cc">僅差 10 kg/m³，成本基本相同</div>
+    <div class="rk">骨材採購</div><div>100% 再生砂 870 kg/m³，源自拆除土石方水洗加工</div><div>100% 天然砂 927 kg/m³（粗砂 464＋細砂 463）</div><div class="cc">B5 資源轉化利用具成本彈性</div>
+    <div class="rk">廢棄物處置</div><div>舊建物 B5 土石方去化再利用</div><div>無處置效益，全數購入天然資源</div><div class="cc">大幅節省處置費用</div>
+    <div class="rk">綜合 ESG 價值</div><div>綠建材標章＋低碳形象＋28 天合格</div><div>傳統標準品質，高強度裕度</div><div class="cc">大幅提升專案 ESG 價值</div>
+  </div>
+  <div class="key"><b>重點</b>成本幾乎不變，卻多了去化效益、綠建材標章與 ESG 價值</div>
+  <aside class="notes">對業主最實際的問題：會不會比較貴？
+膠結材用量只差 10 kg/m³，成本基本相同；骨材用再生砂具成本彈性；同時省下舊建物土石方的處置費用；再加上綠建材標章和低碳形象，專案的 ESG 價值大幅提升。
+本案採雙軌：主體結構仍用傳統預拌，再生砂混凝土用在假設工程與排樁，兼顧結構裕度與循環效益。</aside>
+</section>
+
+<section class="slide" data-ch="5" data-title="現場紀錄影片">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>影片：豐譽聯合疾管署新建案精細拆除紀錄</h2></div>
+  <a class="video" href="https://www.youtube.com/watch?v=TH12fW2lg0Y&amp;t=1s" target="_blank" rel="noopener">
+    <img src="img/image111.jpg" alt="影片封面：以全新的模樣再次回到">
+    <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span>
+    <span class="vc">豐譽企業團隊｜衛福部防疫中心工程・循環再設計展（點擊在 YouTube 播放）</span>
+  </a>
+  <aside class="notes">點畫面會在新分頁開 YouTube 播放。播放前可先提示大家注意：影片最後一句「以全新的模樣再次回到」。</aside>
+</section>
+
+<!-- CONCLUSION -->
+<section class="slide" data-ch="6" data-steps="3" data-title="結語：三個原則">
+  <div class="hd"><div class="eyebrow">結語</div><h2>讓拆除成為材料循環的起點</h2></div>
+  <div class="prin">
+    <div class="pr" data-f="1"><span class="no">1</span><div><h3>先定義用途，再回推材料篩選與拆除工法</h3><p>以終為始：先問材料要變成什麼</p></div></div>
+    <div class="pr" data-f="2"><span class="no">2</span><div><h3>用現場分類與可追溯資料，證明資源化不是口號</h3><p>分區、標示、過磅、收受證明，一路留下紀錄</p></div></div>
+    <div class="pr" data-f="3"><span class="no">3</span><div><h3>用試驗與規範，確認再生材料適用於指定用途</h3><p>CNS 1240、試拌、抗壓、無毒檢驗，逐項過關</p></div></div>
+  </div>
+  <aside class="notes">最後收斂成三個原則（逐一揭曉）：
+一，先定義用途，再回推材料篩選與拆除工法。
+二，用現場分類與可追溯資料，證明資源化不是口號。
+三，用試驗與規範確認再生材料是否適用於指定用途。</aside>
+</section>
+
+<section class="slide" data-ch="6" data-steps="3" data-title="還記得三個數字嗎">
+  <div class="hd"><div class="vote"><i></i>請大家一起回答</div><h2>還記得開場的三個數字嗎？</h2></div>
+  <div class="recall" data-recall>
+    <button class="rc"><div class="in" style="height:100%">
+      <div class="fc"><span class="q">B5 類土石方<br>再利用了多少？</span><span class="mark">?</span></div>
+      <div class="bc"><div class="big">100<small>%</small></div><div class="lbl">B5 類土石方再利用</div><div class="sub">11,973 m³ 全數加工為再生機制砂</div></div>
+    </div></button>
+    <button class="rc"><div class="in" style="height:100%">
+      <div class="fc"><span class="q">回到本案工地的<br>再生砂有多少？</span><span class="mark">?</span></div>
+      <div class="bc"><div class="big">5,537<small>噸</small></div><div class="lbl">再生砂回到本案工地</div><div class="sub">排樁 4,559 噸＋假設工程 978 噸</div></div>
+    </div></button>
+    <button class="rc"><div class="in" style="height:100%">
+      <div class="fc"><span class="q">預估最後需要<br>焚化的有多少？</span><span class="mark">?</span></div>
+      <div class="bc"><div class="big">38.9<small>噸</small></div><div class="lbl">預估最終需焚化</div><div class="sub">一般拆除約 114.3 噸；約占總重 0.12%</div></div>
+    </div></button>
+  </div>
+  <div class="key"><b>重點</b>100%・5,537 噸・38.9 噸：拆除物可以回到工程裡</div>
+  <aside class="notes">開場說過結尾會考大家。請大家一起喊出答案。（逐一翻牌）
+100%、5,537 噸、38.9 噸。謝謝大家記住它們。</aside>
+</section>
+
+<section class="slide dark" id="s-end" data-ch="6" data-title="感謝聆聽">
+  <img class="bg" src="img/image1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16">
+  <h2 class="rise" style="position:relative">感謝聆聽與交流</h2>
+  <p class="sub rise d1" style="position:relative">攜手邁向營建淨零未來。</p>
+  <button class="refbtn rise d2" data-refs style="position:relative">主要參考資料</button>
+  <div class="refs" style="position:relative">
+    <a href="https://www.nlma.gov.tw/ch/legislation/law%26regusw/9" target="_blank" rel="noopener">內政部國土管理署｜營建剩餘土石方處理方案</a>
+    <a href="https://www.moi.gov.tw/News_toggle3.aspx?_CSN=1637&amp;n=8365&amp;sms=9015" target="_blank" rel="noopener">內政部／國土管理署｜營建剩餘土石方定義與申報</a>
+    <a href="https://www.dbaweb.tcg.gov.tw/TempRules/rules/front/Rule_show.aspx?entry=344" target="_blank" rel="noopener">臺北市法規｜營建剩餘資源分類及處理定義</a>
+    <a href="https://www.fengyu.com.tw/news-detail/0/67" target="_blank" rel="noopener">豐譽營造｜疾管署工程案例與資源化成果</a>
+    <a href="https://www.fengyu.com.tw/news-detail/0/76" target="_blank" rel="noopener">豐譽營造｜精細拆除實務說明</a>
+    <span class="warn">所有性能判定依適用規範及設計文件。</span>
+  </div>
+  <aside class="notes">謝謝大家。歡迎提問；需要回到某一頁時，按 G 開目錄直接跳。</aside>
+</section>
+
+<div id="chrome"><span>營建資源循環工作坊</span><div class="bar"><div class="fill"></div></div><span class="pg">1 / 35</span></div>
+</div>
+</div>
+
+<div id="dock" role="toolbar" aria-label="簡報控制">
+  <button id="b-prev" aria-label="上一步"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button id="b-next" aria-label="下一步"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <button id="b-menu" aria-label="目錄（G）" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+  <button id="b-notes" aria-label="講者備註（N）" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 9h8M8 13h8M8 17h5"/></svg></button>
+  <button id="b-fs" aria-label="全螢幕（F）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
+<div id="notes" aria-live="polite"><div class="nh"><span>講者備註</span><span id="n-pos"></span></div><div class="nb" id="n-body"></div></div>
+<nav id="menu" aria-label="目錄"></nav>
+<div id="lightbox"><img alt=""></div>
+<div id="black"></div>
+<div id="rotate">橫向觀看效果最佳</div>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const stage=$('#stage'), vp=$('#viewport');
+const slides=$$('.slide', stage);
+const N=slides.length;
+let cur=0, step=0;
+const maxStep=s=>+(s.dataset.steps||0);
+const CH=['開場','第一章｜新舊融合','第二章｜拆除防護','第三章｜以終為始・精細拆除','第四章｜土石方資源化','第五章｜CDC 實例','結語'];
+
+function fit(){const w=vp.clientWidth,h=vp.clientHeight;stage.style.setProperty('--s',Math.min(w/1920,h/1080));}
+addEventListener('resize',fit);fit();
+
+/* count-up */
+function countUp(el){const to=+el.dataset.to,dec=+(el.dataset.dec||0),t0=performance.now(),d=1100;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=fmt(to,dec);return}
+  (function f(t){const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=fmt(to*e,dec);if(p<1)requestAnimationFrame(f)})(t0);}
+function fmt(v,dec){return v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+
+function applyStep(){
+  const s=slides[cur];
+  $$('[data-f]',s).forEach(el=>{const on=+el.dataset.f<=step;if(on&&!el.classList.contains('on'))$$('.count',el).forEach(countUp);el.classList.toggle('on',on)});
+  s.dispatchEvent(new CustomEvent('step',{detail:step}));
+  updateNotes();
+}
+function go(i,st=0,instant){
+  i=Math.max(0,Math.min(N-1,i));
+  const prev=slides[cur];
+  if(i!==cur){prev.classList.remove('active');$$('video',prev).forEach(v=>v.pause());}
+  cur=i;step=Math.max(0,Math.min(maxStep(slides[i]),st));
+  const s=slides[i];s.classList.add('active');
+  stage.classList.toggle('on-dark',s.classList.contains('dark'));
+  $$('video',s).forEach(v=>{v.preload='auto';v.play().catch(()=>{})});
+  $$('.count',s).forEach(el=>{if(!el.closest('[data-f]'))countUp(el)});
+  $('#chrome .fill').style.width=((i)/(N-1)*100)+'%';
+  $('#chrome .pg').textContent=(i+1)+' / '+N;
+  try{history.replaceState(null,'','#p'+(i+1))}catch(e){}
+  s.dispatchEvent(new CustomEvent('enter'));
+  applyStep();renderMenu();
+}
+function setStep(n){step=Math.max(0,Math.min(maxStep(slides[cur]),n));applyStep();}
+function next(){if(step<maxStep(slides[cur]))setStep(step+1);else if(cur<N-1)go(cur+1,0)}
+function prev(){if(step>0)setStep(step-1);else if(cur>0)go(cur-1,maxStep(slides[cur-1]))}
+window.__deck={go,next,prev,setStep};
+
+/* ---------- components ---------- */
+// quiz
+$$('.quiz').forEach(q=>{const s=q.closest('.slide');const hits=(q.dataset.hit||'').split(',').map(Number);
+  $$('.opt',q).forEach(o=>{if(hits.includes(+o.dataset.opt))o.classList.add('hit');
+    o.addEventListener('click',()=>{$$('.opt',q).forEach(x=>x.classList.remove('picked'));o.classList.add('picked');if(step<1)setStep(1)})});
+  s.addEventListener('step',e=>q.classList.toggle('revealed',e.detail>=1));
+});
+// tabs (step = tab index)
+$$('[data-tabs]').forEach(t=>{const s=t.closest('.slide');
+  const sel=k=>{$$('.tab',t).forEach(b=>b.classList.toggle('on',+b.dataset.tab===k));$$('.panel',s).forEach(p=>p.classList.toggle('on',+p.dataset.panel===k))};
+  $$('.tab',t).forEach(b=>b.addEventListener('click',()=>setStep(+b.dataset.tab)));
+  s.addEventListener('step',e=>sel(e.detail));
+});
+// switch-driven states
+$$('[data-switch]').forEach(sw=>{const s=sw.closest('.slide');
+  $$('button',sw).forEach(b=>b.addEventListener('click',()=>setStep(+b.dataset.s)));
+  s.addEventListener('step',e=>{$$('button',sw).forEach(b=>b.classList.toggle('on',+b.dataset.s===(e.detail?1:0)));
+    $$('[data-cmp],[data-sc]',s).forEach(c=>c.dataset.state=e.detail?1:0)});
+});
+// before/after slider
+$$('[data-ba]').forEach(ba=>{const s=ba.closest('.slide');let drag=false;
+  const set=x=>{ba.classList.remove('anim');const r=ba.getBoundingClientRect();ba.style.setProperty('--x',Math.max(0,Math.min(100,(x-r.left)/r.width*100))+'%')};
+  ba.addEventListener('pointerdown',e=>{drag=true;ba.setPointerCapture(e.pointerId);set(e.clientX)});
+  ba.addEventListener('pointermove',e=>{if(drag)set(e.clientX)});
+  ba.addEventListener('pointerup',()=>drag=false);
+  s.addEventListener('step',e=>{ba.classList.add('anim');ba.style.setProperty('--x',e.detail?'0%':'100%')});
+  s.addEventListener('enter',()=>{ba.classList.remove('anim');ba.style.setProperty('--x',step?'0%':'100%')});
+});
+// data-go buttons (click sets step)
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>setStep(+b.dataset.go)));
+// stepper tiles
+$$('[data-stepper]').forEach(st=>{const s=st.closest('.slide');const tiles=$$('.st',st);
+  tiles.forEach((t,i)=>t.addEventListener('click',()=>setStep(i+1)));
+  s.addEventListener('step',e=>tiles.forEach((t,i)=>{t.classList.toggle('cur',i===e.detail-1);t.classList.toggle('done',i<e.detail-1)}));
+});
+// flips
+$$('[data-flips]').forEach(f=>{const s=f.closest('.slide');const cards=$$('.flip',f);
+  cards.forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flipped')));
+  s.addEventListener('step',e=>{const n=e.detail;cards.forEach((c,i)=>{if(i<n)c.classList.add('flipped');else if(i===n)c.classList.remove('flipped')})});
+  s.addEventListener('enter',()=>{if(step===0)cards.forEach(c=>c.classList.remove('flipped'))});
+});
+$$('[data-recall]').forEach(f=>{const s=f.closest('.slide');const cards=$$('.rc',f);
+  cards.forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flipped')));
+  s.addEventListener('step',e=>cards.forEach((c,i)=>c.classList.toggle('flipped',i<e.detail)));
+});
+// general vs fine
+$$('[data-gvf]').forEach(g=>{const s=g.closest('.slide');
+  const W={0:{mix:100,wood:0,plas:0,glas:0,re:0},1:{mix:34,wood:50,plas:10,glas:4,re:2}};
+  s.addEventListener('step',e=>{const st=e.detail?1:0;g.dataset.state=st;
+    $$('.pchips .add',g).forEach(x=>x.classList.toggle('hide',!st));
+    $('[data-v="last"]',g).textContent=st?'營建廢棄物回收再利用（B8）':'營建廢棄物清運（B8）';
+    $('[data-v="steps"]',g).textContent=st?'6 步':'4 步';
+    const b5=$('[data-v="b5"]',g);b5.textContent=st?'100% 加工為再生機制砂':'100% 回填台北港';b5.style.background=st?'var(--forest-2)':'var(--brick)';
+    $('[data-v="b5n"]',g).textContent=st?'27.7% 回到本案工程，其餘供其他工程使用':'只能做為填築料';
+    $$('[data-stack] div',g).forEach(d=>{const k=d.dataset.k;d.style.flexBasis=W[st][k]+'%';
+      if(k==='mix')d.textContent=st?'混合物 34%':'營建混合物 100%';
+      if(k==='glas')d.textContent=st?'4%':'';});
+    const bv=$('[data-v="burn"]',g);bv.dataset.to=st?38.9:114.3;bv.dataset.dec=1;countUp(bv);bv.style.color=st?'var(--forest-2)':'var(--brick)';
+    $('[data-v="burnk"]',g).textContent=st?'分選後混合物約 10% 焚化，約占總重 0.12%':'全部進入混合物處理場，約 10% 焚化';
+  });
+});
+// pipeline
+$$('[data-pipe]').forEach(p=>{const s=p.closest('.slide');const nodes=$$('.node',p);const det=$('[data-pdetail]',s);
+  const data=$$('i',$('template[data-pd]',s).content).map(i=>i.textContent.split('|'));
+  nodes.forEach((n,i)=>n.addEventListener('click',()=>setStep(i+1)));
+  s.addEventListener('step',e=>{const k=e.detail;nodes.forEach((n,i)=>{n.classList.toggle('cur',i===k-1);n.classList.toggle('done',i<k-1)});
+    $('.prog',p).style.width=k?((k-1)/5*84)+'%':'0';
+    if(k){det.innerHTML='<span class="h">'+data[k-1][0]+'</span><span class="d">'+data[k-1][1]+'</span>';det.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:350})}
+    else det.innerHTML='<span class="h">六站流程</span><span class="d">點任一站，看這一站要做什麼。</span>';});
+});
+// checklist
+$$('[data-checks]').forEach(c=>{const s=c.closest('.slide');const items=$$('.ck',c);let timers=[];
+  items.forEach(it=>it.addEventListener('click',()=>it.classList.toggle('ok')));
+  s.addEventListener('step',e=>{timers.forEach(clearTimeout);timers=[];
+    if(e.detail)items.forEach((it,i)=>timers.push(setTimeout(()=>it.classList.add('ok'),i*220)));else items.forEach(it=>it.classList.remove('ok'))});
+});
+// strength chart
+(()=>{const svg=$('[data-chart]');if(!svg)return;const s=svg.closest('.slide');
+  const ages=[7,28,56,91,180,365],A=[350,471,564,595,615,625],B=[234,383.7,495,590,665,700];
+  const X=i=>110+i*(840/5),Y=v=>460-(v-200)*(420/550);const NS='http://www.w3.org/2000/svg';
+  const mk=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+  [200,300,400,500,600,700].forEach(v=>{mk('line',{x1:90,x2:980,y1:Y(v),y2:Y(v),stroke:'#D5DBD0','stroke-width':1.5});const t=mk('text',{x:78,y:Y(v)+9,'text-anchor':'end'});t.textContent=v});
+  ages.forEach((a,i)=>{const t=mk('text',{x:X(i),y:500,'text-anchor':'middle'});t.textContent=a+' 天'});
+  mk('line',{x1:90,x2:980,y1:Y(280),y2:Y(280),stroke:'#B9852A','stroke-width':3,'stroke-dasharray':'10 8'});
+  const dl=mk('text',{x:975,y:Y(280)-12,'text-anchor':'end',class:'lb',fill:'#8A6216'});dl.textContent='設計強度 280';dl.style.fill='#8A6216';
+  const la=mk('polyline',{fill:'none',stroke:'#7F93A8','stroke-width':6,'stroke-linejoin':'round','stroke-linecap':'round'});
+  const lb=mk('polyline',{fill:'none',stroke:'#2B6A47','stroke-width':6,'stroke-linejoin':'round','stroke-linecap':'round'});
+  const da=[],db=[];ages.forEach((_,i)=>{da.push(mk('circle',{cx:X(i),cy:Y(A[i]),r:10,fill:'#7F93A8'}));db.push(mk('circle',{cx:X(i),cy:Y(B[i]),r:10,fill:'#2B6A47'}))});
+  const cur=mk('line',{y1:40,y2:460,stroke:'#16241B','stroke-width':2,'stroke-dasharray':'4 6',opacity:.5});
+  const agesBox=$('[data-ages]',s);ages.forEach((a,i)=>{const b=document.createElement('button');b.textContent=a+' 天';b.onclick=()=>setStep(i);agesBox.appendChild(b)});
+  s.addEventListener('step',e=>{const k=e.detail;
+    la.setAttribute('points',A.slice(0,k+1).map((v,i)=>X(i)+','+Y(v)).join(' '));
+    lb.setAttribute('points',B.slice(0,k+1).map((v,i)=>X(i)+','+Y(v)).join(' '));
+    da.forEach((c,i)=>{c.style.opacity=i<=k?1:0;c.setAttribute('r',i===k?13:9)});db.forEach((c,i)=>{c.style.opacity=i<=k?1:0;c.setAttribute('r',i===k?13:9)});
+    cur.setAttribute('x1',X(k));cur.setAttribute('x2',X(k));
+    $$('button',agesBox).forEach((b,i)=>b.classList.toggle('on',i===k));
+    $('[data-ro-age]',s).textContent='齡期 '+ages[k]+' 天';
+    $('[data-ro-a]',s).textContent=A[k];$('[data-ro-b]',s).textContent=B[k];
+    const d=B[k]-A[k];const dd=Math.round(Math.abs(d)*10)/10;$('[data-ro-vs]',s).textContent=(d>=0?'比天然砂高 ':'比天然砂低 ')+dd+(B[k]>=280?'　·　已超過設計強度 280':'　·　未達 280（7 天為早期強度）');
+  });
+})();
+// mix bars
+(()=>{const box=$('[data-mix]');if(!box)return;const s=box.closest('.slide');
+  const rows=[['水泥',295,301],['爐石粉',84,86],['飛灰',41,43],['拌合水',180,185],['細骨材（砂）',927,870,'天然砂 → 再生砂'],['粗骨材（石）',810,770],['水膠比 W/B','0.44','0.44']];
+  rows.forEach(r=>{const d=document.createElement('div');d.className='mx'+(r[0].startsWith('細')?' fine':'');
+    const num=typeof r[1]==='number';
+    d.innerHTML='<span class="k">'+r[0]+(r[3]?'<br><small style="font-weight:500;color:var(--ochre);font-size:24px">'+r[3]+'</small>':'')+'</span><span class="bars">'+(num?'<div class="a" style="width:'+(r[1]/950*100)+'%"></div><div class="b" style="width:'+(r[2]/950*100)+'%"></div>':'<span style="font-size:26px;color:var(--mute)">兩廠一致</span>')+'</span><span class="vals">'+r[1]+'<br>'+r[2]+'</span>';
+    box.appendChild(d)});
+  s.addEventListener('step',e=>$('.mx.fine',box).classList.toggle('hl',e.detail>=1));
+})();
+// trucks
+(()=>{const box=$('[data-trucks]');if(!box)return;const s=box.closest('.slide');
+  let html='';for(let i=0;i<277;i++)html+='<svg viewBox="0 0 32 20"><use href="#i-truck"/></svg>';box.innerHTML=html;
+  const ts=$$('svg',box),n=$('[data-truckn]',s);let timer;
+  s.addEventListener('step',e=>{clearInterval(timer);const k=e.detail;
+    if(k>=1){box.classList.add('go');let i=ts.filter(t=>t.classList.contains('lit')).length;
+      if(i<277)timer=setInterval(()=>{for(let j=0;j<7&&i<277;j++,i++)ts[i].classList.add('lit');n.textContent=i;if(i>=277)clearInterval(timer)},16);else n.textContent=277}
+    else{box.classList.remove('go');ts.forEach(t=>t.classList.remove('lit'));n.textContent=0}
+    $$('[data-ratios] .track div',s).forEach(d=>d.style.width=k>=2?d.dataset.w+'%':'0')});
+})();
+// refs
+$$('[data-refs]').forEach(b=>b.addEventListener('click',()=>b.nextElementSibling.classList.toggle('on')));
+// agenda jump
+$$('[data-jump]').forEach(b=>b.addEventListener('click',()=>go(slides.indexOf(document.getElementById(b.dataset.jump)))));
+
+stage.addEventListener('click',e=>{const b=e.target.closest('button');if(b)setTimeout(()=>b.blur(),0)});
+/* ---------- lightbox ---------- */
+const lb=$('#lightbox');
+stage.addEventListener('click',e=>{const im=e.target.closest('img.zoom');if(im){lb.querySelector('img').src=im.src;lb.querySelector('img').alt=im.alt;lb.classList.add('on')}});
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+
+/* ---------- notes / menu / dock ---------- */
+const notes=$('#notes'),menu=$('#menu');
+function updateNotes(){const a=$('aside.notes',slides[cur]);$('#n-body').textContent=a?a.textContent.trim():'（本頁無備註）';
+  $('#n-pos').textContent=(cur+1)+' / '+N+(maxStep(slides[cur])?'　·　步驟 '+step+' / '+maxStep(slides[cur]):'')}
+function toggleNotes(){notes.classList.toggle('on');$('#b-notes').setAttribute('aria-pressed',notes.classList.contains('on'))}
+function renderMenu(){let h='',last=-1;slides.forEach((s,i)=>{const c=+s.dataset.ch;if(c!==last){h+='<h4>'+CH[c]+'</h4>';last=c}
+  h+='<button data-i="'+i+'" class="'+(i===cur?'cur':'')+'"><span>'+(i+1)+'</span>'+s.dataset.title+'</button>'});
+  h+='<div class="help"><kbd>→</kbd><kbd>空白</kbd>下一步　<kbd>←</kbd>上一步<br><kbd>N</kbd>講者備註　<kbd>G</kbd>目錄　<kbd>F</kbd>全螢幕<br><kbd>1</kbd>～<kbd>5</kbd>跳到各章　<kbd>A</kbd>自動播放<br><kbd>B</kbd>黑屏　<kbd>Home</kbd><kbd>End</kbd>首頁／末頁<br>點照片可放大</div>';menu.innerHTML=h}
+menu.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){go(+b.dataset.i);toggleMenu(false)}});
+function toggleMenu(v){menu.classList.toggle('on',v);$('#b-menu').setAttribute('aria-pressed',menu.classList.contains('on'))}
+function fs(){const d=document;if(!d.fullscreenElement){(d.documentElement.requestFullscreen?.()||Promise.reject()).catch(()=>{})}else d.exitFullscreen?.()}
+document.addEventListener('fullscreenchange',()=>{document.body.classList.toggle('fs',!!document.fullscreenElement);setTimeout(fit,50)});
+$('#b-prev').onclick=prev;$('#b-next').onclick=next;$('#b-notes').onclick=toggleNotes;$('#b-menu').onclick=()=>toggleMenu();$('#b-fs').onclick=fs;
+let idleT;const dock=$('#dock');const wake=()=>{dock.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(()=>dock.classList.add('idle'),2600)};
+addEventListener('pointermove',wake);wake();
+
+addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key;
+  if($('#black').classList.contains('on')&&k!=='b'&&k!=='B'&&k!=='.'){ $('#black').classList.remove('on');return}
+  if(lb.classList.contains('on')){if(k==='Escape'||k===' '||k==='Enter')lb.classList.remove('on');e.preventDefault();return}
+  if(['ArrowRight','PageDown',' ','Enter','ArrowDown'].includes(k)){if(k==='Enter'&&e.target.closest('button'))return;e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(k)){e.preventDefault();prev()}
+  else if(k==='Home')go(0);else if(k==='End')go(N-1);
+  else if(k==='n'||k==='N')toggleNotes();else if(k==='g'||k==='G'||k==='m'||k==='M')toggleMenu();
+  else if(k==='f'||k==='F')fs();else if(k==='b'||k==='B'||k==='.')$('#black').classList.toggle('on');
+  else if(k==='Escape'){toggleMenu(false);notes.classList.remove('on');stopAuto()}
+  else if(/^[1-5]$/.test(k)){const t=document.getElementById('ch'+k);if(t)go(slides.indexOf(t))}
+  else if(k==='a'||k==='A')toggleAuto();
+});
+// autoplay
+let autoT=null;function stopAuto(){clearInterval(autoT);autoT=null}
+function toggleAuto(){if(autoT){stopAuto();return}autoT=setInterval(()=>{if(cur>=N-1&&step>=maxStep(slides[cur]))stopAuto();else next()},7000)}
+// swipe
+let sx=null;stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+stage.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50&&!e.target.closest('[data-ba]'))(dx<0?next:prev)();sx=null});
+
+const fromHash=()=>{const m=location.hash.match(/^#p(\d+)$/);return m?Math.min(N,Math.max(1,+m[1]))-1:0};
+addEventListener('hashchange',()=>{const i=fromHash();if(i!==cur)go(i)});
+go(fromHash());
+})();
+</script>
+
+</body>
+</html>
