@@ -37,6 +37,7 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- slide base ---------- */
 .slide>aside.notes{display:none}
+.slide[data-hidden]{display:none!important}
 .slide{position:absolute;inset:0;padding:84px 120px 176px;display:flex;flex-direction:column;gap:40px;
   opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s;background:var(--ground)}
 .slide.active{opacity:1;visibility:visible;transition:opacity .45s ease}
@@ -63,10 +64,10 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .dark .key{color:var(--on-dark)}
 
 /* stage chrome */
-#chrome{position:absolute;left:120px;right:120px;bottom:24px;height:30px;display:flex;align-items:center;gap:24px;font-size:24px;color:var(--mute);pointer-events:none;z-index:5}
+#chrome{position:absolute;left:120px;right:300px;bottom:24px;height:30px;display:flex;align-items:center;gap:24px;font-size:24px;color:var(--mute);pointer-events:none;z-index:5}
 #chrome .bar{flex:1;height:6px;background:rgba(84,100,90,.18);border-radius:3px;position:relative;overflow:hidden}
 #chrome .fill{position:absolute;inset:0 auto 0 0;background:var(--ochre);border-radius:3px;transition:width .5s ease}
-#chrome .pg{font-family:var(--f-num);font-weight:600;font-size:26px;min-width:90px;text-align:right}
+#chrome .pg{font-family:var(--f-num);font-weight:600;font-size:26px;min-width:90px;text-align:left}
 #stage.on-dark #chrome{color:var(--on-dark-mute)}
 #stage.on-dark #chrome .bar{background:rgba(238,242,234,.18)}
 
@@ -653,7 +654,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
   <div class="hd"><div class="eyebrow">第二章｜拆除防護</div><h2>現場怎麼做：兩個例子</h2></div>
   <div class="tabs" data-tabs>
     <button class="tab on" data-tab="0">歷史建物保護</button>
-    <button class="tab" data-tab="1">臨路圍牆切割</button>
+    <button class="tab" data-tab="1">臨路圍牆：切割拆除＋噴霧降塵</button>
   </div>
   <div class="panel on" data-panel="0">
     <div class="fig" style="width:640px;flex:none"><img class="zoom" src="img/image26.jpg" alt="歷史建物正面以透氣帆布美化"></div>
@@ -665,14 +666,14 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
   <div class="panel" data-panel="1">
     <div class="fig" style="width:640px;flex:none"><img class="zoom" src="img/image31.jpg" alt="西側昆陽街圍牆"><span class="tag">西側昆陽街</span></div>
     <div class="col grow">
-      <p style="font-size:31px;line-height:1.6">西側昆陽街圍牆以<b>圓鋸機切割</b>拆除，降低臨路側的粉塵污染，同時減少對鄰近人行道的震動與衝擊。</p>
+      <p style="font-size:31px;line-height:1.6">西側昆陽街圍牆以<b>圓鋸機切割拆除</b>，並沿圍牆<b>噴霧降塵</b>，降低臨路側的粉塵污染，同時減少對鄰近人行道的震動與衝擊。</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0"><div class="fig"><img class="zoom" src="img/image29.jpg" alt="圍牆切割後"></div><div class="fig"><img class="zoom" src="img/image30.jpg" alt="圓鋸機切割作業"></div></div>
     </div>
   </div>
   <div class="key"><b>重點</b>把減擾措施寫進施工計畫，而不是事後補救</div>
   <aside class="notes">兩個現場例子（點分頁切換）：
 歷史建物保護：重型施工架加頂棚防墜落，防塵網減少污染；正面用透氣帆布美化，上面記載過去、現在與未來，讓路過的民眾也看得懂我們在做什麼。
-臨路圍牆：昆陽街這側用圓鋸機切割，不用敲打，粉塵和震動都小很多。</aside>
+臨路圍牆：昆陽街這側用圓鋸機切割拆除，不用敲打，同時沿圍牆噴霧降塵，粉塵和震動都小很多。</aside>
 </section>
 
 <!-- CH3 -->
@@ -943,7 +944,7 @@ PVC 地磚：送潔安環保造粒。
 （切換）循環模式：從既有建築或危老拆除的土石方出發，精細分類後做成磊篩克砂，也就是再生細骨材，再做成再生混凝土。這條鏈可以一直循環下去。</aside>
 </section>
 
-<section class="slide" data-ch="5" data-steps="1" data-title="強度猜猜看">
+<section class="slide" data-ch="5" data-steps="1" data-title="強度猜猜看" data-hidden>
   <div class="hd"><div class="vote"><i></i>請舉手作答</div><h2>用再生砂做的混凝土，強度表現如何？</h2></div>
   <div class="quiz col grow" data-hit="1">
     <div class="opts">
@@ -1145,7 +1146,7 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
   <aside class="notes">謝謝大家。歡迎提問；需要回到某一頁時，按 G 開目錄直接跳。</aside>
 </section>
 
-<div id="chrome"><span>營建資源循環工作坊</span><div class="bar"><div class="fill"></div></div><span class="pg">1 / 35</span></div>
+<div id="chrome"><span>營建資源循環工作坊</span><span class="pg">1 / 34</span><div class="bar"><div class="fill"></div></div></div>
 </div>
 </div>
 
@@ -1166,7 +1167,7 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
 (()=>{
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const stage=$('#stage'), vp=$('#viewport');
-const slides=$$('.slide', stage);
+const slides=$$('.slide:not([data-hidden])', stage);
 const N=slides.length;
 let cur=0, step=0;
 const maxStep=s=>+(s.dataset.steps||0);
