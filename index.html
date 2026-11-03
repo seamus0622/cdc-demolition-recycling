@@ -1346,7 +1346,7 @@ function updateNotes(){const a=$('aside.notes',slides[cur]);$('#n-body').textCon
 function toggleNotes(){notes.classList.toggle('on');$('#b-notes').setAttribute('aria-pressed',notes.classList.contains('on'))}
 function renderMenu(){let h='',last=-1;slides.forEach((s,i)=>{const c=+s.dataset.ch;if(c!==last){h+='<h4>'+CH[c]+'</h4>';last=c}
   h+='<button data-i="'+i+'" class="'+(i===cur?'cur':'')+'"><span>'+(i+1)+'</span>'+s.dataset.title+'</button>'});
-  h+='<div class="help"><kbd>→</kbd><kbd>空白</kbd>下一步　<kbd>←</kbd>上一步<br><kbd>N</kbd>講者備註　<kbd>G</kbd>目錄　<kbd>F</kbd>全螢幕<br><kbd>1</kbd>～<kbd>5</kbd>跳到各章　<kbd>A</kbd>自動播放<br><kbd>B</kbd>黑屏　<kbd>Home</kbd><kbd>End</kbd>首頁／末頁<br>點照片可放大</div>';menu.innerHTML=h}
+  h+='<div class="help"><kbd>→</kbd><kbd>空白</kbd>下一步　<kbd>←</kbd>上一步<br><kbd>N</kbd>講者備註　<kbd>G</kbd>目錄　<kbd>F</kbd>全螢幕<br><kbd>1</kbd>～<kbd>5</kbd>跳到各章　<kbd>A</kbd>自動播放<br>簡報筆「開始播放」（F5）＝全螢幕<br><kbd>B</kbd>黑屏　<kbd>Home</kbd><kbd>End</kbd>首頁／末頁<br>點照片可放大</div>';menu.innerHTML=h}
 menu.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){go(+b.dataset.i);toggleMenu(false)}});
 function toggleMenu(v){menu.classList.toggle('on',v);$('#b-menu').setAttribute('aria-pressed',menu.classList.contains('on'))}
 function fs(){const d=document;if(!d.fullscreenElement){(d.documentElement.requestFullscreen?.()||Promise.reject()).catch(()=>{})}else d.exitFullscreen?.()}
@@ -1356,6 +1356,7 @@ let idleT;const dock=$('#dock');const wake=()=>{dock.classList.remove('idle');cl
 addEventListener('pointermove',wake);wake();
 
 addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key;
+  if(k==='F5'){e.preventDefault();if(!document.fullscreenElement)fs();return}
   if($('#black').classList.contains('on')&&k!=='b'&&k!=='B'&&k!=='.'){ $('#black').classList.remove('on');return}
   if(lb.classList.contains('on')){if(k==='Escape'||k===' '||k==='Enter')lb.classList.remove('on');e.preventDefault();return}
   if(['ArrowRight','PageDown',' ','Enter','ArrowDown'].includes(k)){if(k==='Enter'&&e.target.closest('button'))return;e.preventDefault();next()}
