@@ -333,6 +333,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .ro .vs{font-size:26px;font-weight:700}
 .ro.nat{background:#E1E6EC;color:#2B3D52}
 .ro.rec{background:var(--moss-soft);color:var(--forest)}
+.ro-compact .ro{padding:18px 24px}.ro-compact .ro .v{font-size:80px}.ro-compact .ro .vs{font-size:24px}
 
 /* mix compare */
 .mix{display:flex;flex-direction:column;gap:6px}
@@ -943,30 +944,30 @@ PVC 地磚：送潔安環保造粒。
 多數人會選 A。（揭曉）答案是 B：7 天時確實比較低，但 28 天兩組都超過 280 的設計強度，而且再生砂組會持續成長。</aside>
 </section>
 
-<section class="slide" data-ch="5" data-steps="5" data-title="抗壓強度曲線">
-  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>抗壓強度：28 天達標，長期持續成長</h2></div>
+<section class="slide" data-ch="5" data-steps="1" data-title="7 天與 28 天強度落點">
+  <div class="hd"><div class="eyebrow">第五章｜CDC 實例</div><h2>宥辰再生砂混凝土：7 天與 28 天強度落點</h2></div>
   <div class="body">
     <div style="width:1130px;flex:none;display:flex;flex-direction:column;gap:10px">
       <div class="chart-wrap">
-        <svg viewBox="0 0 1000 520" data-chart aria-label="兩種配比 7 至 365 天抗壓強度折線圖"></svg>
+      <div class="mlegend" style="padding:4px 0 0 70px"><span><i style="background:#7F93A8;border-radius:50%"></i>7 天（空心：未達 147）</span><span><i style="background:#2B6A47;border-radius:50%"></i>28 天 3 個試體平均</span><span><i style="background:#B9852A;height:4px;vertical-align:5px"></i>設計強度 210</span><span><i style="background:#7F93A8;height:3px;vertical-align:5px"></i>147（設計 70%）</span></div>
+        <svg viewBox="0 25 1000 495" data-chart aria-label="本案 11 組宥辰再生砂混凝土 7 天與 28 天抗壓強度落點圖"></svg>
       </div>
-      <div class="ages" data-ages></div>
+      <div class="ages" data-ages><button data-a="0">7 天</button><button data-a="1">28 天</button></div>
     </div>
-    <div class="readout col grow">
-      <div style="font-size:30px;font-weight:900" data-ro-age>齡期 7 天</div>
-      <div class="ro nat"><span class="k">傳統預拌（天然砂）</span><span class="v"><span data-ro-a>350</span><small>kgf/cm²</small></span></div>
-      <div class="ro rec"><span class="k">宥辰興業（再生砂）</span><span class="v"><span data-ro-b>234</span><small>kgf/cm²</small></span><span class="vs" data-ro-vs></span></div>
-      <p style="font-size:26px;color:var(--mute);line-height:1.5">再生砂的微觀多孔隙會持續釋放水分，讓水化反應持續進行，強度隨齡期提升。</p>
-      <p class="cap">資料：本案廠拌試驗（一般 280 配比，W/B = 0.44）</p>
+    <div class="readout col grow ro-compact" style="gap:14px">
+      <div style="font-size:30px;font-weight:900" data-ro-age>齡期 7 天｜11 組</div>
+      <div class="ro rec"><span class="k">平均抗壓強度</span><span class="v"><span data-ro-a>163</span><small>kgf/cm²</small></span><span class="vs" data-ro-as>設計強度的 78%</span></div>
+      <div class="ro nat"><span class="k" data-ro-bk>7 天達 147（設計 70%）</span><span class="v"><span data-ro-b>8 / 11</span><small data-ro-bu>組</small></span><span class="vs" data-ro-bs></span></div>
+      <p class="bi" data-ro-detail style="font-size:26px;line-height:1.5;color:var(--ink)"></p>
     </div>
   </div>
-  <div class="key"><b>重點</b>28 天實測全數超過設計強度 280 kgf/cm²</div>
-  <aside class="notes">（按鍵或點下方天數，曲線一段一段長出來）
-7 天：天然砂 350、再生砂 234，再生砂較低，但兩組都達設計值七成以上。
-28 天：471 對 383.7，兩組都超過 280 設計強度。
-56 天、91 天差距持續縮小，91 天 595 對 590 幾乎一樣。
-180 天再生砂 665 反超天然砂 615，365 天 700 對 625。
-原因是磊篩克砂的微觀孔隙會持續釋放水分，等於自己在養護。</aside>
+  <p class="cap" style="position:absolute;right:120px;top:96px">資料：正中工程顧問內湖實驗室（TAF 2038）試驗報告，CNS 1232</p>
+  <div class="key"><b>重點</b>28 天 11 組、33 個試體全數超過設計強度 210 kgf/cm²</div>
+  <aside class="notes">（按鍵或點下方「7 天／28 天」切換；點圖上任一組可看該組部位與數據）
+這是本案宥辰再生砂混凝土的實際試驗結果，設計強度 210，由正中工程顧問 TAF 實驗室試驗，從 114 年 12 月到 115 年 9 月共 11 組，用在樁帽梁和壓樑。
+7 天：11 組平均 163，約設計強度 78%，最低 137、最高 198。其中 8 組達到設計強度 70%（147）；有 3 組（137、141、144）略低於 70%，但這 3 組到 28 天都達到 120% 到 139%。
+28 天：這是判定設計強度的齡期。11 組平均 293，約設計強度 140%；每組 3 個試體、共 33 個，全部超過 210，最低的單一試體是 243。
+每一組都有實驗室、監造（劉培森建築師事務所）與施工廠商的判定章。</aside>
 </section>
 
 <section class="slide" data-ch="5" data-steps="1" data-title="配比與坍度">
@@ -1270,29 +1271,42 @@ $$('[data-checks]').forEach(c=>{const s=c.closest('.slide');const items=$$('.ck'
   s.addEventListener('step',e=>{timers.forEach(clearTimeout);timers=[];
     if(e.detail)items.forEach((it,i)=>timers.push(setTimeout(()=>it.classList.add('ok'),i*220)));else items.forEach(it=>it.classList.remove('ok'))});
 });
-// strength chart
+// strength chart (宥辰 7 天／28 天落點)
 (()=>{const svg=$('[data-chart]');if(!svg)return;const s=svg.closest('.slide');
-  const ages=[7,28,56,91,180,365],A=[350,471,564,595,615,625],B=[234,383.7,495,590,665,700];
-  const X=i=>110+i*(840/5),Y=v=>460-(v-200)*(420/550);const NS='http://www.w3.org/2000/svg';
+  const D=[['114/12/23','北側微型樁帽梁',157,[296,298,291],'25014323、25014324'],['115/01/28','南側微型樁帽梁、東側圍籬防溢座',141,[297,286,294],'26001068、26001069'],['115/04/21','歷史建築預壘樁帽梁',173,[317,323,323],'26003672、26003673'],['115/07/21','南側壓樑',166,[253,282,301],'26007313、26007314'],['115/07/30','滯洪池 A 壓樑',178,[302,310,295],'26007614、26007615'],['115/08/04','北側壓樑',151,[272,262,262],'26007777、26007778'],['115/08/07','東側及北側壓樑',198,[308,315,308],'26007971、26007975'],['115/08/13','西北側及滯洪池壓樑',137,[243,248,265],'26008156、26008159'],['115/08/25','滯洪池 BC 壓樑',144,[283,261,280],'26008626、26008627'],['115/08/27','西側壓樑',183,[303,331,319],'26008768、26008769'],['115/09/01','歷建周圍壓樑',164,[312,301,316],'26008903、26008904']];
+  const FC=210,avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length),pc=v=>Math.round(v/FC*100);
+  const X=i=>120+i*(840/10),Y=v=>440-(v-100)*(400/250);const NS='http://www.w3.org/2000/svg';
   const mk=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
-  [200,300,400,500,600,700].forEach(v=>{mk('line',{x1:90,x2:980,y1:Y(v),y2:Y(v),stroke:'#D5DBD0','stroke-width':1.5});const t=mk('text',{x:78,y:Y(v)+9,'text-anchor':'end'});t.textContent=v});
-  ages.forEach((a,i)=>{const t=mk('text',{x:X(i),y:500,'text-anchor':'middle'});t.textContent=a+' 天'});
-  mk('line',{x1:90,x2:980,y1:Y(280),y2:Y(280),stroke:'#B9852A','stroke-width':3,'stroke-dasharray':'10 8'});
-  const dl=mk('text',{x:975,y:Y(280)-12,'text-anchor':'end',class:'lb',fill:'#8A6216'});dl.textContent='設計強度 280';dl.style.fill='#8A6216';
-  const la=mk('polyline',{fill:'none',stroke:'#7F93A8','stroke-width':6,'stroke-linejoin':'round','stroke-linecap':'round'});
-  const lb=mk('polyline',{fill:'none',stroke:'#2B6A47','stroke-width':6,'stroke-linejoin':'round','stroke-linecap':'round'});
-  const da=[],db=[];ages.forEach((_,i)=>{da.push(mk('circle',{cx:X(i),cy:Y(A[i]),r:10,fill:'#7F93A8'}));db.push(mk('circle',{cx:X(i),cy:Y(B[i]),r:10,fill:'#2B6A47'}))});
-  const cur=mk('line',{y1:40,y2:460,stroke:'#16241B','stroke-width':2,'stroke-dasharray':'4 6',opacity:.5});
-  const agesBox=$('[data-ages]',s);ages.forEach((a,i)=>{const b=document.createElement('button');b.textContent=a+' 天';b.onclick=()=>setStep(i);agesBox.appendChild(b)});
-  s.addEventListener('step',e=>{const k=e.detail;
-    la.setAttribute('points',A.slice(0,k+1).map((v,i)=>X(i)+','+Y(v)).join(' '));
-    lb.setAttribute('points',B.slice(0,k+1).map((v,i)=>X(i)+','+Y(v)).join(' '));
-    da.forEach((c,i)=>{c.style.opacity=i<=k?1:0;c.setAttribute('r',i===k?13:9)});db.forEach((c,i)=>{c.style.opacity=i<=k?1:0;c.setAttribute('r',i===k?13:9)});
-    cur.setAttribute('x1',X(k));cur.setAttribute('x2',X(k));
-    $$('button',agesBox).forEach((b,i)=>b.classList.toggle('on',i===k));
-    $('[data-ro-age]',s).textContent='齡期 '+ages[k]+' 天';
-    $('[data-ro-a]',s).textContent=A[k];$('[data-ro-b]',s).textContent=B[k];
-    const d=B[k]-A[k];const dd=Math.round(Math.abs(d)*10)/10;$('[data-ro-vs]',s).textContent=(d>=0?'比天然砂高 ':'比天然砂低 ')+dd+(B[k]>=280?'　·　已超過設計強度 280':'　·　未達 280（7 天為早期強度）');
+  [100,150,200,250,300,350].forEach(v=>{mk('line',{x1:95,x2:985,y1:Y(v),y2:Y(v),stroke:'#D5DBD0','stroke-width':1.5});const t=mk('text',{x:84,y:Y(v)+9,'text-anchor':'end'});t.textContent=v});
+  D.forEach((d,i)=>{const t=mk('text',{x:X(i),y:478,'text-anchor':'middle'});t.textContent=i+1});
+  const xt=mk('text',{x:540,y:512,'text-anchor':'middle',class:'lb'});xt.textContent='組別（依製模日期 114/12～115/09）';
+  mk('line',{x1:95,x2:985,y1:Y(FC),y2:Y(FC),stroke:'#B9852A','stroke-width':3,'stroke-dasharray':'10 8'});
+  const dl=mk('text',{x:980,y:Y(FC)-12,'text-anchor':'end',class:'lb'});dl.textContent='設計強度 210';dl.style.fill='#8A6216';
+  const g7=mk('g',{});mk('line',{x1:95,x2:985,y1:Y(147),y2:Y(147),stroke:'#7F93A8','stroke-width':2,'stroke-dasharray':'6 8'},g7);
+  const conn=[],p28=[],a28=[],d7=[],hit=[];
+  D.forEach((d,i)=>{const av=avg(d[3]),mn=Math.min(...d[3]),mx=Math.max(...d[3]);
+    conn.push(mk('line',{x1:X(i),x2:X(i),y1:Y(d[2]),y2:Y(d[2]),stroke:'#2B6A47','stroke-width':3,opacity:.35}));
+    const g=mk('g',{});mk('line',{x1:X(i),x2:X(i),y1:Y(mn),y2:Y(mx),stroke:'#2B6A47','stroke-width':14,'stroke-linecap':'round',opacity:.22},g);
+    d[3].forEach(v=>mk('circle',{cx:X(i),cy:Y(v),r:5,fill:'#2B6A47',opacity:.6},g));
+    p28.push(g);a28.push(mk('circle',{cx:X(i),cy:Y(av),r:13,fill:'#2B6A47',stroke:'#FAFBF7','stroke-width':3}));
+    d7.push(mk('circle',{cx:X(i),cy:Y(d[2]),r:12,fill:d[2]>=147?'#7F93A8':'#FAFBF7',stroke:'#7F93A8','stroke-width':4}));
+    const h=mk('rect',{x:X(i)-40,y:30,width:80,height:420,fill:'transparent',style:'cursor:pointer'});h.addEventListener('click',()=>show(i));hit.push(h)});
+  const det=$('[data-ro-detail]',s);let sel=-1;
+  function show(i){sel=i;const d=D[i],av=avg(d[3]);hit.forEach((h,j)=>h.setAttribute('fill',j===i?'rgba(185,133,42,.10)':'transparent'));
+    det.innerHTML='<b>第 '+(i+1)+' 組｜'+d[1]+'</b><br>製模 '+d[0]+'　·　7 天 '+d[2]+'（'+pc(d[2])+'%）<br>28 天 '+d[3].join('／')+'，平均 '+av+'（'+pc(av)+'%）<br><span style="color:var(--mute);font-size:24px">報告編號 '+d[4]+'</span>'}
+  const box=$('[data-ages]',s);$$('button',box).forEach(b=>b.onclick=()=>setStep(+b.dataset.a));
+  s.addEventListener('step',e=>{const k=e.detail;$$('button',box).forEach(b=>b.classList.toggle('on',+b.dataset.a===k));
+    p28.forEach(g=>{g.style.transition='opacity .6s';g.style.opacity=k?1:0});a28.forEach(c=>{c.style.transition='opacity .6s';c.style.opacity=k?1:0});
+    conn.forEach((l,i)=>{l.style.transition='all .8s';l.setAttribute('y2',Y(k?avg(D[i][3]):D[i][2]))});
+    d7.forEach(c=>c.style.opacity=k?.55:1);g7.style.opacity=k?.35:1;
+    const v7=D.map(d=>d[2]),all28=D.flatMap(d=>d[3]),av28=D.map(d=>avg(d[3]));
+    if(!k){$('[data-ro-age]',s).textContent='齡期 7 天｜11 組';$('[data-ro-a]',s).textContent=avg(v7);$('[data-ro-as]',s).textContent='設計 '+pc(avg(v7))+'%｜範圍 '+Math.min(...v7)+'～'+Math.max(...v7);
+      $('[data-ro-bk]',s).textContent='7 天達 147（設計 70%）';$('[data-ro-b]',s).textContent=v7.filter(v=>v>=147).length+' / 11';$('[data-ro-bu]',s).textContent='組';
+      $('[data-ro-bs]',s).textContent='其餘 3 組 137～144，28 天仍達 120%～139%';}
+    else{$('[data-ro-age]',s).textContent='齡期 28 天｜11 組、33 個試體';$('[data-ro-a]',s).textContent=Math.round(av28.reduce((x,y)=>x+y,0)/11);$('[data-ro-as]',s).textContent='設計 '+pc(Math.round(av28.reduce((x,y)=>x+y,0)/11))+'%｜各組 '+Math.min(...av28)+'～'+Math.max(...av28);
+      $('[data-ro-bk]',s).textContent='超過設計強度 210';$('[data-ro-b]',s).textContent=all28.filter(v=>v>FC).length+' / 33';$('[data-ro-bu]',s).textContent='個試體';
+      $('[data-ro-bs]',s).textContent='單一試體最低 '+Math.min(...all28)+'（'+pc(Math.min(...all28))+'%）';}
+    if(sel<0)det.innerHTML='<span style="color:var(--mute)">點圖上任一組，查看部位、製模日期與報告編號。</span>';
   });
 })();
 // mix bars
