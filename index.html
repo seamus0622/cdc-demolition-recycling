@@ -128,7 +128,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 
 /* ---------- agenda ---------- */
 .agenda{display:flex;flex-direction:column;gap:0;border-top:2px solid var(--line)}
-.ag{display:grid;grid-template-columns:120px 520px 1fr 60px;align-items:center;gap:24px;padding:22px 8px;border:0;border-bottom:2px solid var(--line);background:none;text-align:left;transition:background .2s,padding .2s}
+.ag{display:grid;grid-template-columns:120px 520px 1fr 60px;align-items:center;gap:24px;padding:16px 8px;border:0;border-bottom:2px solid var(--line);background:none;text-align:left;transition:background .2s,padding .2s}
 .ag:hover{background:var(--card);padding-left:24px}
 .ag .no{font-family:var(--f-num);font-size:64px;font-weight:700;color:var(--forest-2);line-height:1}
 .ag .nm{font-family:var(--f-display);font-size:44px;font-weight:900}
@@ -438,6 +438,55 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .refs a{color:var(--ochre-soft)}
 .refs .warn{font-size:24px;margin-top:6px}
 
+
+/* ---------- chapter 6: urban mine ---------- */
+.src{font-size:24px;color:var(--mute);line-height:1.45}
+.src b{color:var(--ink);font-weight:700}
+.yr{display:flex;align-items:flex-end;gap:18px;height:470px;padding:0 4px;border-bottom:3px solid var(--ink);position:relative}
+.yr .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:100%;position:relative}
+.yr .bar{width:100%;background:#AFC2B3;border-radius:8px 8px 0 0;transition:background .5s,height 1s cubic-bezier(.3,.7,.2,1)}
+.yr .v{font-family:var(--f-num);font-size:30px;font-weight:700;color:var(--mute);white-space:nowrap}
+.yr .y{position:absolute;bottom:-46px;font-family:var(--f-num);font-size:28px;color:var(--mute);font-weight:600}
+.yr.hl .b.k .bar{background:var(--forest-2)}
+.yr.hl .b.k .v{color:var(--forest);font-size:36px}
+.yr .grow{position:absolute;left:12%;right:4%;top:2px;display:flex;align-items:center;gap:14px;justify-content:flex-end;font-size:30px;font-weight:900;color:var(--ochre);opacity:0;transition:opacity .6s}
+.yr.hl .grow{opacity:1}
+.mcard{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:26px 30px;display:flex;flex-direction:column;gap:6px}
+.mcard .k{font-size:27px;font-weight:700;color:var(--mute)}
+.mcard .v{font-family:var(--f-num);font-weight:700;font-size:96px;line-height:1;color:var(--forest);white-space:nowrap}
+.mcard .v small{font-family:var(--f-body);font-size:32px;font-weight:900;margin-left:6px}
+.mcard p{font-size:26px;line-height:1.5}
+.mcard.gold{background:var(--ochre-soft);border-color:#E3CB92}.mcard.gold .v{color:var(--ochre)}
+.mcard.brick{background:var(--brick-soft);border-color:#E3B5A6}.mcard.brick .v{color:var(--brick)}
+.sst{display:flex;height:150px;border-radius:14px;overflow:hidden;background:var(--card);border:2px solid var(--line)}
+.sst div{display:flex;flex-direction:column;justify-content:center;padding:0 22px;color:#fff;font-weight:900;font-size:28px;line-height:1.25;white-space:nowrap;overflow:hidden;transition:flex-basis 1.1s cubic-bezier(.3,.7,.2,1)}
+.sst div small{font-family:var(--f-num);font-size:30px;font-weight:700}
+.vs2{display:flex;flex-direction:column;gap:36px}
+.vs2 .row{display:grid;grid-template-columns:380px 1fr;gap:26px;align-items:center}
+.vs2 .lab{font-size:28px;font-weight:900;line-height:1.3}
+.vs2 .lab small{display:block;font-size:24px;font-weight:500;color:var(--mute)}
+.vs2 .tr{height:80px;background:rgba(84,100,90,.12);border-radius:10px;position:relative;overflow:hidden}
+.vs2 .tr div{height:100%;border-radius:10px;display:flex;align-items:center;justify-content:flex-end;padding-right:16px;color:#fff;font-family:var(--f-num);font-size:32px;font-weight:700;white-space:nowrap;transition:width 1.1s cubic-bezier(.3,.7,.2,1)}
+.calc{background:var(--forest);color:var(--on-dark);border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:14px}
+.calc label{font-size:27px;font-weight:700;display:flex;justify-content:space-between;gap:16px}
+.calc label b{font-family:var(--f-num);font-size:36px;color:var(--ochre-soft)}
+.calc input[type=range]{width:100%;accent-color:#D9A441;height:34px}
+.calc .out{font-family:var(--f-num);font-size:96px;font-weight:700;line-height:1;color:#fff}
+.calc .out small{font-family:var(--f-body);font-size:32px;font-weight:900;margin-left:8px;color:var(--ochre-soft)}
+.calc p{font-size:24px;color:var(--on-dark-mute);line-height:1.5}
+.lp{position:relative;flex:1;min-height:0}
+.lp .nd{position:absolute;width:360px;background:var(--card);border:2.5px solid var(--line);border-radius:20px;padding:22px 26px;display:flex;flex-direction:column;gap:6px}
+.lp .nd h3{font-size:36px;font-weight:900}
+.lp .nd .tg{font-size:24px;font-weight:900;letter-spacing:.12em;color:var(--ochre)}
+.lp .nd p{font-size:25px;line-height:1.45;color:#2E3B33}
+.lp .hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:330px;height:330px;border-radius:50%;background:var(--forest);color:var(--on-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:20px}
+.lp .hub b{font-family:var(--f-display);font-size:46px;line-height:1.2}
+.lp .hub span{font-size:24px;color:var(--on-dark-mute)}
+.lp svg.ring{position:absolute;inset:0;width:100%;height:100%}
+.refl{columns:2;column-gap:56px;font-size:23px;line-height:1.5}
+.refl li{break-inside:avoid;margin-bottom:12px}
+.refl b{color:var(--forest)}
+
 /* ---------- overlays (outside stage, normal web sizing) ---------- */
 #dock{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:rgba(14,23,18,.86);border:1px solid rgba(238,242,234,.18);padding:6px;border-radius:12px;z-index:30;transition:opacity .5s}
 #dock.idle{opacity:.12}
@@ -490,7 +539,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
     <div class="kick rise">循環營建</div>
     <h1 class="rise d1">舊建築拆除物<br>資源化實例探討</h1>
     <p class="sub rise d2">以豐譽營造「衛生福利部防疫中心興建工程」為案例</p>
-    <div class="chips rise d3"><span>新舊融合</span><span>拆除防護</span><span>以終為始・精細拆除</span><span>土石方資源化</span><span>CDC 實例</span></div>
+    <div class="chips rise d3"><span>新舊融合</span><span>拆除防護</span><span>以終為始・精細拆除</span><span>土石方資源化</span><span>CDC 實例</span><span>城市是座礦山</span></div>
     <div class="hint rise d4"><kbd>→</kbd> 或 <kbd>空白鍵</kbd> 開始　·　<kbd>N</kbd> 講者備註　·　<kbd>G</kbd> 目錄</div>
   </div>
   <div class="r"><img src="img/image1.jpg" alt="衛生福利部防疫中心新建工程透視圖"></div>
@@ -502,16 +551,17 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 
 
 <!-- 04 AGENDA -->
-<section class="slide" data-ch="0" data-title="五個段落">
-  <div class="hd"><div class="eyebrow rise">簡報架構</div><h2 class="rise d1">五個段落，從歷史走到工地</h2></div>
+<section class="slide" data-ch="0" data-title="六個段落">
+  <div class="hd"><div class="eyebrow rise">簡報架構</div><h2 class="rise d1">六個段落，從歷史走到全台</h2></div>
   <div class="agenda rise d2">
     <button class="ag" data-jump="ch1"><span class="no">01</span><span class="nm">新舊融合</span><span class="ds">這塊基地的過去，與新建築的設計</span><svg><use href="#i-arrow"/></svg></button>
     <button class="ag" data-jump="ch2"><span class="no">02</span><span class="nm">拆除防護</span><span class="ds">粉塵、噪音、鄰損，先預防再施工</span><svg><use href="#i-arrow"/></svg></button>
     <button class="ag" data-jump="ch3"><span class="no">03</span><span class="nm">以終為始・精細拆除</span><span class="ds">先想好材料的去處，再決定怎麼拆</span><svg><use href="#i-arrow"/></svg></button>
     <button class="ag" data-jump="ch4"><span class="no">04</span><span class="nm">土石方資源化</span><span class="ds">B5 類土石方如何變成再生粒料</span><svg><use href="#i-arrow"/></svg></button>
     <button class="ag" data-jump="ch5"><span class="no">05</span><span class="nm">CDC 實例</span><span class="ds">再生砂混凝土的驗證與回用成果</span><svg><use href="#i-arrow"/></svg></button>
+    <button class="ag" data-jump="ch6"><span class="no">06</span><span class="nm">城市是座礦山</span><span class="ds">放大到全台：拆除物能補上多少砂石</span><svg><use href="#i-arrow"/></svg></button>
   </div>
-  <aside class="notes">今天分五段。點任一段可以直接跳過去（現場問答時好用）。</aside>
+  <aside class="notes">今天分六段，最後一段把本案放大到全台。點任一段可以直接跳過去（現場問答時好用）。</aside>
 </section>
 
 <!-- CH1 -->
@@ -1108,6 +1158,163 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
 100%、5,537 噸、38.9 噸。謝謝大家記住它們。</aside>
 </section>
 
+
+<!-- CHAPTER 6: URBAN MINE -->
+<section class="slide dark chapter" id="ch6" data-ch="7" data-title="第六章｜城市是座礦山">
+  <img class="bg" src="img/h_xd_air.jpg" alt=""><div class="veil"></div>
+  <div class="cn rise">06</div>
+  <div class="ct rise d1">城市是座礦山</div>
+  <p class="cq rise d2">把本案放大到全台：<em>每年拆下來的混凝土</em>，能不能成為下一代建築的砂石？</p>
+  <aside class="notes">本案講完了，最後我想把鏡頭拉遠，看整個台灣。
+一個工地可以做到 B5 百分之百再利用，那全台灣每年拆下來的磚塊、混凝土塊有多少？砂石從哪裡來？如果都做成再生砂，能補上多少？
+接下來每一頁的數字，都是政府公開統計，出處標在頁面上。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="1" data-title="全台營建剩餘土石方">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>全台每年產出約 4,000 萬方營建剩餘土石方</h2></div>
+  <div class="body">
+    <div class="col" style="width:1080px;flex:none;gap:60px">
+      <div class="yr" data-yr><div class="grow">105 → 113 年　成長 75%</div><div class="b"><span class="v">2,744</span><div class="bar" style="height:220px"></div><span class="y">104</span></div><div class="b k"><span class="v">2,481</span><div class="bar" style="height:198px"></div><span class="y">105</span></div><div class="b"><span class="v">2,707</span><div class="bar" style="height:217px"></div><span class="y">106</span></div><div class="b"><span class="v">3,018</span><div class="bar" style="height:241px"></div><span class="y">107</span></div><div class="b"><span class="v">3,830</span><div class="bar" style="height:306px"></div><span class="y">108</span></div><div class="b"><span class="v">4,328</span><div class="bar" style="height:346px"></div><span class="y">109</span></div><div class="b"><span class="v">4,634</span><div class="bar" style="height:371px"></div><span class="y">110</span></div><div class="b"><span class="v">4,300</span><div class="bar" style="height:344px"></div><span class="y">111</span></div><div class="b"><span class="v">4,172</span><div class="bar" style="height:334px"></div><span class="y">112</span></div><div class="b k"><span class="v">4,354</span><div class="bar" style="height:348px"></div><span class="y">113</span></div></div>
+      <p class="src" style="margin-top:6px">單位：萬立方公尺（民國年）｜資料：內政部國土管理署、環境部〈營建土石方與廢棄物全方位介紹〉簡報</p>
+    </div>
+    <div class="col grow" style="gap:22px;justify-content:center">
+      <div class="mcard"><span class="k">113 年全國營建剩餘土石方</span><span class="v">4,354<small>萬方</small></span></div>
+      <div class="mcard"><span class="k">近 5 年平均（109–113 年）</span><span class="v">4,358<small>萬方</small></span></div>
+      <div class="mcard gold" data-f="1"><span class="k">需要填埋的比例（5 年均值）</span><span class="v">約 25%<small>≈1,000 萬方</small></span><p>含既有土方交換量、<b>廢磚、混凝土塊</b>與連續壁皂土</p></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>土方年年增加，其中廢磚、混凝土塊是最難去化、只能填埋的一類</div>
+  <aside class="notes">先看全台的量。國土管理署的統計，營建剩餘土石方從 105 年的 2,481 萬方，增加到 113 年的 4,354 萬方，成長 75%，近五年平均每年大約 4,300 多萬方。
+（按一下）國土署的簡報也提到，這些土方裡大約四分之一、約 1,000 萬方需要找地方填埋，裡面就包括廢磚和混凝土塊。這就是我們今天講的 B5。
+補充：這 4,000 多萬方大部分是工程開挖的土，拆除產生的磚塊混凝土塊下一頁分開看。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="2" data-title="拆除產生的 B5">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>拆除產生的 B5：每年約 350 萬噸，大多拿去填海、回填</h2></div>
+  <div class="body" style="gap:28px;align-items:center">
+    <div class="mcard" style="flex:1;align-self:stretch;justify-content:center"><span class="k">112 年 B5 類土石方（磚塊、水泥塊等）</span><span class="v">350<small>萬噸</small></span><p>占營建土石方及混合物約 570 萬噸的 <b>6 成</b>；換算每天約 <b>9,600 噸</b></p><p class="src">內政部及環境部統計（中央社 2025/12/16）</p></div>
+    <div class="mcard brick" style="flex:1;align-self:stretch;justify-content:center" data-f="1"><span class="k">現在的去處</span><span class="v" style="font-size:64px">填海、回填</span><p>環境部：「全台大部分 B5 類土石方用於填海、回填等用途」</p><p>就建築物結構而言，B5 約占總重量 <b>95%</b></p><p class="src">環境部（中央社 2025/12/16）</p></div>
+    <div class="mcard gold" style="flex:1;align-self:stretch;justify-content:center" data-f="2"><span class="k">113 年拆除執照</span><span class="v">190.8<small>萬 m²</small></span><p>2,289 件（112 年為 238.7 萬 m²）</p><p>本案 16,070 m² → B5 11,973 m³，即 <b>0.745 m³/m²</b>，與環境部清理計畫書參考係數（RC 住宅 0.822 m³/m²）同一水準</p><p class="src">內政部統計年報（建築管理）；環境部營造及拆除業清理計畫書參考例</p></div>
+  </div>
+  <div class="key"><b>重點</b>一棟建築拆下來九成五是 B5；現在大多被填掉，而不是被用掉</div>
+  <aside class="notes">拆除這一塊，內政部和環境部的統計：112 年營建土石方及混合物約 570 萬噸，其中 B5，也就是磚塊、混凝土塊，約 350 萬噸，占六成。換算下來，全台每天約有 9,600 噸。
+（按一下）這些 B5 現在去哪裡？環境部自己說：大部分用於填海、回填。而一棟建築拆下來，B5 占了總重量約 95%。
+（再按一下）再看拆除的規模：113 年核發拆除執照 2,289 件、190.8 萬平方公尺。本案拆 16,070 平方公尺、產出 B5 11,973 立方公尺，每平方公尺約 0.745 立方公尺，和環境部清理計畫書給的參考係數 0.822 是同一個水準。也就是說，本案的經驗可以放大來看。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="1" data-title="砂石從哪裡來">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>砂石從哪裡來：112 年全台需求 7,249 萬噸</h2></div>
+  <div class="col grow" style="gap:36px;justify-content:center">
+    <div class="sst" data-sst>
+      <div data-w="67.0" style="flex-basis:67.0%;background:#5D7287">河川砂石<small>4,853 萬噸｜73.2%</small></div>
+      <div data-w="22.6" style="flex-basis:22.6%;background:var(--forest-2)">營建剩餘土石方<small>1,638 萬噸｜24.7%</small></div>
+      <div data-w="1.9" style="flex-basis:1.9%;background:#8A7A5A"></div>
+      <div data-w="8.7" style="flex-basis:8.7%;background:#9AA5AF">進口<small>633 萬噸</small></div>
+    </div>
+    <p class="src">國內供應 6,629 萬噸（百分比為占國內供應）＋進口 633 萬噸；礦區礦石 139 萬噸（2.1%）未標字｜資料：經濟部地質調查及礦業管理中心〈112 年度砂土石產銷調查報告〉</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      <div class="mcard"><span class="k">開挖土方已經在供應砂石</span><p>營建剩餘土石方提供國內砂石約 <b>1/4</b>：土方變砂石這條路，已經走得通</p></div>
+      <div class="mcard brick" data-f="1"><span class="k">北部需求大於供給</span><p>河川砂仍占 7 成；地礦中心以「<b>南砂北運、東砂北運</b>」描述區域供需，北部是用砂大、砂源少的地區</p><p class="src">地礦中心〈砂石開發供應政策評估說明書〉112/10</p></div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>開挖土方已能補上 1/4 砂石；下一步是把拆除的 B5 也變成砂</div>
+  <aside class="notes">第二個問題：砂石從哪裡來？經濟部地礦中心的產銷調查，112 年全台砂石需求 7,249 萬噸。國內供應裡，河川砂石占 73%，營建剩餘土石方已經占了將近 25%，另外還有 633 萬噸靠進口。
+也就是說，新建工程開挖出來的土方，現在已經在供應四分之一的砂石，土方變砂石這條路是走得通的。
+（按一下）但問題在北部：地礦中心自己用「南砂北運、東砂北運」來描述，北部用砂多、砂源少。而北部剛好也是老屋最多、拆除最多的地方。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="1" data-title="每天的尺度">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>放到每一天：B5 可以補上多少混凝土用砂？</h2></div>
+  <div class="body">
+    <div class="col" style="width:1060px;flex:none;gap:34px;justify-content:center">
+      <div class="vs2">
+        <div class="row"><span class="lab">全台預拌混凝土<small>每年 4,000–4,200 萬 m³（公會）</small></span><div class="tr"><div style="width:100%;background:#5D7287">≈ 11.2 萬 m³／天</div></div></div>
+        <div class="row"><span class="lab">混凝土每天要用的砂<small>以本案配比 870 kg/m³ 推算</small></span><div class="tr"><div style="width:100%;background:#7F93A8">≈ 9.8 萬噸／天</div></div></div>
+        <div class="row" data-f="1"><span class="lab">每天拆出來的 B5<small>350 萬噸 ÷ 365</small></span><div class="tr"><div data-b5bar style="width:9.8%;background:var(--forest-2);justify-content:flex-start;padding-left:16px;overflow:visible"><span style="position:absolute;left:calc(9.8% + 18px);color:var(--forest)">≈ 9,600 噸／天</span></div></div></div>
+      </div>
+      <p class="src">預拌混凝土量：台灣區預拌混凝土工業同業公會（工商時報 2025/07/15）｜B5：內政部及環境部統計｜比例為本簡報試算</p>
+    </div>
+    <div class="col grow" style="justify-content:center">
+      <div class="calc" data-calc>
+        <label for="b5yield">B5 加工成再生砂的比例 <b data-yv>100%</b></label>
+        <input id="b5yield" type="range" min="10" max="100" step="5" value="100">
+        <span class="out"><span data-co>9.8</span><small>%</small></span>
+        <p>可供應全台預拌混凝土的細骨材比例<br>（約 <span data-cm>402</span> 萬 m³ 混凝土／年）<br>100% 為理論上限；實際比例取決於分類與加工品質</p>
+      </div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>B5 全數做成再生砂，理論上可補上全台混凝土用砂約一成</div>
+  <aside class="notes">把尺度換成每一天。全台預拌混凝土，公會統計每年 4,000 到 4,200 萬立方公尺，平均每天約 11 萬立方。以本案配比每立方用砂 870 公斤推算，每天要用將近 10 萬噸的砂。
+（按一下）而每天拆出來的 B5 大約 9,600 噸。如果全部做成再生砂，理論上可以供應全台混凝土用砂約一成，相當於每年約 400 萬立方的混凝土。
+右邊可以拉動：如果只有一半能做成合格的再生砂，就是大約 5%。重點不是一成這個數字，而是：它不是零，而且它就在都市裡，不用從河川挖、不用從南部運。
+提醒：這是以官方總量做的試算，不是官方統計值。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="1" data-title="減碳在哪裡">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>減碳在哪裡：主要來自少運輸、少開採</h2></div>
+  <div class="body">
+    <div class="col" style="width:1000px;flex:none;gap:20px">
+      <div class="mcard"><span class="k">① 生產階段：再生與天然粒料差異不大</span><p>建研所（99 年）：再生骨材生產階段減碳約 <b>1.9–4.9 kg CO₂/m³</b>；北部營建廢棄物處理廠實廠盤查約 <b>35.7 kg CO₂e/噸</b>（單一廠初步結果）</p><p class="src">內政部建築研究所〈建築廢棄混凝土磚瓦再利用之CO₂減量效益評估之研究〉；陳起鳳、黃仁志（CEITA，2025/04）</p></div>
+      <div class="mcard gold"><span class="k">② 運輸：主要減碳來源</span><p>營業大貨車（柴油）約 <b>0.131 kg CO₂e／延噸公里</b>；本案少跑 277 車次</p><p class="src">環境部產品碳足跡資訊網係數（經第三方文章轉述，正式引用前請以資料庫原值複核）</p></div>
+      <div class="mcard"><span class="k">③ 開採與填埋：少挖河川、少占填海容量</span><p>環境部列出再生建材的效益：減碳、減廢、減填埋、減焚化、減少非法棄置</p></div>
+    </div>
+    <div class="col grow" style="justify-content:center;gap:18px">
+      <div class="calc" data-carbon>
+        <label for="haul">節省的運距（天然砂 − 再生砂） <b data-dv>100 km</b></label>
+        <input id="haul" type="range" min="20" max="250" step="10" value="100">
+        <span style="font-size:26px;font-weight:700">本案 5,537 噸再生砂</span>
+        <span class="out"><span data-c1>72.5</span><small>噸 CO₂e</small></span>
+        <div data-f="1" style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(238,242,234,.25);padding-top:14px">
+          <span style="font-size:26px;font-weight:700">全台 B5 350 萬噸／年</span>
+          <span class="out" style="font-size:72px"><span data-c2>4.6</span><small>萬噸 CO₂e／年</small></span>
+        </div>
+        <p>試算：噸數 × 運距 × 0.131 kg CO₂e／延噸公里；運距為假設值，可拖動調整</p>
+      </div>
+    </div>
+  </div>
+  <div class="key"><b>重點</b>就近取材才是減碳關鍵：在城市裡拆、在城市裡用</div>
+  <aside class="notes">減碳要講清楚。第一，如果只看生產過程，再生砂和天然砂的碳排差異不大：建研所的研究是每立方幾公斤，北部一個處理廠實廠盤查約每噸 35.7 公斤。所以不要誇大說再生砂本身很低碳。
+第二，真正的差別在運輸。大貨車每延噸公里約 0.131 公斤 CO₂e。本案 5,537 噸再生砂，如果比天然砂少跑 100 公里，就少排約 72 噸。右邊可以拉動運距。
+（按一下）放大到全台 350 萬噸，同樣少跑 100 公里，一年約 4.6 萬噸。這是試算，運距是假設，但方向很清楚：就近取材。
+第三，還有少挖河川、少占填海容量，這部分環境部也列為再生建材的效益，只是很難換算成碳。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-steps="3" data-title="城市是座礦山">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>城市是座礦山：拆得細、做得好、用得上</h2></div>
+  <div class="lp">
+    <svg class="ring" viewBox="0 0 1680 640" aria-hidden="true"><ellipse cx="840" cy="320" rx="560" ry="250" fill="none" stroke="#B9852A" stroke-width="5" stroke-dasharray="14 12"/><path d="M1392 280 l12 40 l-36 -18z" fill="#B9852A"/><path d="M288 360 l-12 -40 l36 18z" fill="#B9852A"/></svg>
+    <div class="hub"><b>城市礦山</b><span>全台屋齡 30 年以上老屋<br>已超過 550 萬戶</span><span style="font-size:21px">環境部長彭啓明（2026/04/07）</span></div>
+    <div class="nd" style="left:0;top:20px"><span class="tg">礦源</span><h3>舊建築</h3><p>每年拆除約 190–240 萬 m²<br>B5 約 350 萬噸</p></div>
+    <div class="nd" data-f="1" style="right:0;top:20px"><span class="tg">好好拆</span><h3>精細拆除</h3><p>先分類再拆，B5 不混入雜質<br>本案：B5 11,973 m³ 100% 再利用</p></div>
+    <div class="nd" data-f="2" style="right:0;bottom:0"><span class="tg">好好做</span><h3>再生砂</h3><p>依 CNS 1240 檢驗<br>本案 28 天 33/33 試體合格</p></div>
+    <div class="nd" data-f="3" style="left:0;bottom:0"><span class="tg">好好用</span><h3>新建築</h3><p>本案 5,537 噸回到同一工地<br>環境部擬要求公共工程使用一定比例再生建材</p></div>
+  </div>
+  <div class="key"><b>重點</b>舊建築就是下一代建築的砂石來源，本案已經證明這條路走得通</div>
+  <aside class="notes">最後把概念收起來：城市是座礦山。
+中間這個數字是環境部長今年四月說的：全台屋齡 30 年以上的老屋已經超過 550 萬戶。這些老屋就是礦源，每年拆除兩百萬平方公尺上下，產出約 350 萬噸 B5。
+（按一下）要把礦變成料，第一步是好好拆：精細拆除、源頭分類。本案 B5 百分之百再利用。
+（按一下）第二步是好好做：依 CNS 1240 檢驗，本案 28 天 33 個試體全數合格。
+（按一下）第三步是好好用：本案 5,537 噸再生砂回到同一個工地；環境部也規劃修法，要求公共工程使用一定比例的再生建材。
+好好拆、好好做、好好用，這三個詞是環境部的說法，而我們的案子把三步都做了一遍。</aside>
+</section>
+
+<section class="slide" data-ch="7" data-title="資料來源">
+  <div class="hd"><div class="eyebrow">第六章｜城市是座礦山</div><h2>本章資料來源</h2></div>
+  <ol class="refl">
+    <li><b>營建剩餘土石方 104–113 年、需填埋約 25%</b>：內政部國土管理署、環境部〈營建土石方與廢棄物全方位介紹〉（行政院院會資料）；營建剩餘土石方資訊服務中心〈管理政策與申報勾稽作業〉113/12</li>
+    <li><b>B5 約 350 萬噸、占 6 成、多用於填海回填、結構重量 95%</b>：內政部及環境部統計，中央社〈促建材循環 環境部推營建土石方精準分類再利用〉2025/12/16</li>
+    <li><b>拆除執照 113 年 2,289 件、1,907,940 m²</b>：內政部統計年報・建築管理（國土管理署）</li>
+    <li><b>拆除廢棄物參考係數 RC 住宅 0.822 m³/m²</b>：環境部〈營造業及建築拆除業事業廢棄物清理計畫書參考例〉表 1</li>
+    <li><b>112 年砂石需求 7,249 萬噸、供應結構</b>：經濟部地質調查及礦業管理中心〈112 年度砂土石產銷調查報告〉表 2-1、2-4、2-7</li>
+    <li><b>南砂北運、東砂北運</b>：地礦中心〈砂石開發供應政策評估說明書〉公聽會簡報 112/10/19</li>
+    <li><b>預拌混凝土年量 4,000–4,200 萬 m³</b>：台灣區預拌混凝土工業同業公會，工商時報 2025/07/15</li>
+    <li><b>再生骨材生產階段減碳</b>：內政部建築研究所 99 年研究；<b>處理廠實廠 35.7 kg CO₂e/噸</b>：陳起鳳、黃仁志，CEITA 2025/04</li>
+    <li><b>營業大貨車 0.131 kg CO₂e/延噸公里</b>：環境部產品碳足跡資訊網（第三方轉述，請以資料庫原值複核）</li>
+    <li><b>老屋逾 550 萬戶、好好拆／做／用</b>：環境部「循環之城」，經濟日報 2026/04/07</li>
+  </ol>
+  <aside class="notes">本章所有數字的出處都在這一頁，有人問可以直接翻到這裡。標「試算」的是用官方總量自行換算，不是官方公布值。</aside>
+</section>
+
 <section class="slide dark" id="s-end" data-ch="6" data-title="感謝聆聽">
   <img class="bg" src="img/image1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16">
   <h2 class="rise" style="position:relative">感謝聆聽與交流</h2>
@@ -1135,7 +1342,7 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
 </section>
 
 
-<div id="chrome"><span>營建資源循環工作坊</span><span class="pg">1 / 33</span><div class="bar"><div class="fill"></div></div></div>
+<div id="chrome"><span>營建資源循環工作坊</span><span class="pg">1 / 41</span><div class="bar"><div class="fill"></div></div></div>
 </div>
 </div>
 
@@ -1160,7 +1367,7 @@ const slides=$$('.slide:not([data-hidden])', stage);
 const N=slides.length;
 let cur=0, step=0;
 const maxStep=s=>+(s.dataset.steps||0);
-const CH=['開場','第一章｜新舊融合','第二章｜拆除防護','第三章｜以終為始・精細拆除','第四章｜土石方資源化','第五章｜CDC 實例','結語'];
+const CH=['開場','第一章｜新舊融合','第二章｜拆除防護','第三章｜以終為始・精細拆除','第四章｜土石方資源化','第五章｜CDC 實例','結語','第六章｜城市是座礦山'];
 
 function fit(){const w=vp.clientWidth,h=vp.clientHeight;stage.style.setProperty('--s',Math.min(w/1920,h/1080));}
 addEventListener('resize',fit);fit();
@@ -1339,6 +1546,14 @@ $$('[data-checks]').forEach(c=>{const s=c.closest('.slide');const items=$$('.ck'
     else{box.classList.remove('go');ts.forEach(t=>t.classList.remove('lit'));n.textContent=0}
     $$('[data-ratios] .track div',s).forEach(d=>d.style.width=k>=2?d.dataset.w+'%':'0')});
 })();
+
+// chapter 6 interactions
+(()=>{const yr=$('[data-yr]');if(yr){const s=yr.closest('.slide');s.addEventListener('step',e=>yr.classList.toggle('hl',e.detail>=1));s.addEventListener('enter',()=>{if(!step)yr.classList.remove('hl')})}
+  const B5=350e4,RMC=4100e4,SAND=0.87;
+  const c=$('[data-calc]');if(c){const r=$('#b5yield',c);const f=()=>{const y=+r.value/100;$('[data-yv]',c).textContent=r.value+'%';$('[data-co]',c).textContent=(B5*y/(RMC*SAND)*100).toFixed(1);$('[data-cm]',c).textContent=Math.round(B5*y/SAND/1e4);const b=$('[data-b5bar]');if(b)b.style.width=(9.8*y)+'%'};r.addEventListener('input',f);r.addEventListener('pointerdown',e=>e.stopPropagation());f()}
+  const k=$('[data-carbon]');if(k){const r=$('#haul',k);const f=()=>{const d=+r.value;$('[data-dv]',k).textContent=d+' km';$('[data-c1]',k).textContent=(5537*d*0.131/1000).toFixed(1);$('[data-c2]',k).textContent=(B5*d*0.131/1000/1e4).toFixed(1)};r.addEventListener('input',f);f()}
+  $$('input[type=range]').forEach(i=>i.addEventListener('keydown',e=>e.stopPropagation()));
+})();
 // refs
 $$('[data-refs]').forEach(b=>b.addEventListener('click',()=>b.nextElementSibling.classList.toggle('on')));
 // agenda jump
@@ -1357,7 +1572,7 @@ function updateNotes(){const a=$('aside.notes',slides[cur]);$('#n-body').textCon
 function toggleNotes(){notes.classList.toggle('on');$('#b-notes').setAttribute('aria-pressed',notes.classList.contains('on'))}
 function renderMenu(){let h='',last=-1;slides.forEach((s,i)=>{const c=+s.dataset.ch;if(c!==last){h+='<h4>'+CH[c]+'</h4>';last=c}
   h+='<button data-i="'+i+'" class="'+(i===cur?'cur':'')+'"><span>'+(i+1)+'</span>'+s.dataset.title+'</button>'});
-  h+='<div class="help"><kbd>→</kbd><kbd>空白</kbd>下一步　<kbd>←</kbd>上一步<br><kbd>N</kbd>講者備註　<kbd>G</kbd>目錄　<kbd>F</kbd>全螢幕<br><kbd>1</kbd>～<kbd>5</kbd>跳到各章　<kbd>A</kbd>自動播放<br>簡報筆「開始播放」（F5）＝全螢幕<br><kbd>B</kbd>黑屏　<kbd>Home</kbd><kbd>End</kbd>首頁／末頁<br>點照片可放大</div>';menu.innerHTML=h}
+  h+='<div class="help"><kbd>→</kbd><kbd>空白</kbd>下一步　<kbd>←</kbd>上一步<br><kbd>N</kbd>講者備註　<kbd>G</kbd>目錄　<kbd>F</kbd>全螢幕<br><kbd>1</kbd>～<kbd>6</kbd>跳到各章　<kbd>A</kbd>自動播放<br>簡報筆「開始播放」（F5）＝全螢幕<br><kbd>B</kbd>黑屏　<kbd>Home</kbd><kbd>End</kbd>首頁／末頁<br>點照片可放大</div>';menu.innerHTML=h}
 menu.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){go(+b.dataset.i);toggleMenu(false)}});
 function toggleMenu(v){menu.classList.toggle('on',v);$('#b-menu').setAttribute('aria-pressed',menu.classList.contains('on'))}
 function fs(){const d=document;if(!d.fullscreenElement){(d.documentElement.requestFullscreen?.()||Promise.reject()).catch(()=>{})}else d.exitFullscreen?.()}
@@ -1376,7 +1591,7 @@ addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=
   else if(k==='n'||k==='N')toggleNotes();else if(k==='g'||k==='G'||k==='m'||k==='M')toggleMenu();
   else if(k==='f'||k==='F')fs();else if(k==='b'||k==='B'||k==='.')$('#black').classList.toggle('on');
   else if(k==='Escape'){toggleMenu(false);notes.classList.remove('on');stopAuto()}
-  else if(/^[1-5]$/.test(k)){const t=document.getElementById('ch'+k);if(t)go(slides.indexOf(t))}
+  else if(/^[1-6]$/.test(k)){const t=document.getElementById('ch'+k);if(t)go(slides.indexOf(t))}
   else if(k==='a'||k==='A')toggleAuto();
 });
 // autoplay
@@ -1384,7 +1599,7 @@ let autoT=null;function stopAuto(){clearInterval(autoT);autoT=null}
 function toggleAuto(){if(autoT){stopAuto();return}autoT=setInterval(()=>{if(cur>=N-1&&step>=maxStep(slides[cur]))stopAuto();else next()},7000)}
 // swipe
 let sx=null;stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
-stage.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50&&!e.target.closest('[data-ba]'))(dx<0?next:prev)();sx=null});
+stage.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50&&!e.target.closest('[data-ba],.calc'))(dx<0?next:prev)();sx=null});
 
 const fromHash=()=>{const m=location.hash.match(/^#p(\d+)$/);return m?Math.min(N,Math.max(1,+m[1]))-1:0};
 addEventListener('hashchange',()=>{const i=fromHash();if(i!==cur)go(i)});
