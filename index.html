@@ -437,7 +437,15 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .refs{display:none;flex-direction:column;gap:10px;font-size:25px;color:var(--on-dark-mute);background:rgba(14,23,18,.45);border-radius:16px;padding:24px 30px;max-width:1500px}
 .refs.on{display:flex}
 .refs a{color:var(--ochre-soft)}
-.refs .warn{font-size:24px;margin-top:6px}
+.refs .warn{font-size:22px;margin-top:4px}
+.refs .rg{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;row-gap:4px;font-size:21px}
+.refs .rg h4,.refs .rg ol{grid-column:1/-1}
+#s-end:has(.refs.on) .sub{display:none}
+#s-end .refs{max-width:1680px;padding:20px 28px;gap:8px}
+.refs h4{font-size:22px;font-weight:900;letter-spacing:.08em;color:#fff;margin:0}
+.refs ol{margin:0;padding-left:1.4em;columns:2;column-gap:40px;font-size:18px;line-height:1.38}
+.refs li{break-inside:avoid;margin-bottom:4px}
+.refs li b{color:var(--ochre-soft);font-weight:700}
 
 
 /* ---------- chapter 6: urban mine ---------- */
@@ -1022,24 +1030,6 @@ PVC 地磚：送潔安環保造粒。
 好好拆、好好做、好好用，這三個詞是環境部的說法，而我們的案子把三步都做了一遍。</aside>
 </section>
 
-<section class="slide" data-ch="4" data-title="資料來源">
-  <div class="hd"><div class="eyebrow">第四章｜城市是座礦山</div><h2>本章資料來源</h2></div>
-  <ol class="refl">
-    <li><b>營建剩餘土石方 104–113 年、需填埋約 25%</b>：內政部國土管理署、環境部〈營建土石方與廢棄物全方位介紹〉（行政院院會資料）；營建剩餘土石方資訊服務中心〈管理政策與申報勾稽作業〉113/12</li>
-    <li><b>B5 約 350 萬噸、占 6 成、多用於填海回填、結構重量 95%</b>：內政部及環境部統計，中央社〈促建材循環 環境部推營建土石方精準分類再利用〉2025/12/16</li>
-    <li><b>拆除執照 113 年 2,289 件、1,907,940 m²</b>：內政部統計年報・建築管理（國土管理署）</li>
-    <li><b>拆除廢棄物參考係數 RC 住宅 0.822 m³/m²</b>：環境部〈營造業及建築拆除業事業廢棄物清理計畫書參考例〉表 1</li>
-    <li><b>112 年砂石需求 7,249 萬噸、供應結構</b>：經濟部地質調查及礦業管理中心〈112 年度砂土石產銷調查報告〉表 2-1、2-4、2-7</li>
-    <li><b>南砂北運、東砂北運</b>：地礦中心〈砂石開發供應政策評估說明書〉公聽會簡報 112/10/19</li>
-    <li><b>預拌混凝土年量 4,000–4,200 萬 m³</b>：台灣區預拌混凝土工業同業公會，工商時報 2025/07/15</li>
-    <li><b>再生骨材生產階段減碳</b>：內政部建築研究所 99 年研究；<b>處理廠實廠 35.7 kg CO₂e/噸</b>：陳起鳳、黃仁志，CEITA 2025/04</li>
-    <li><b>營業大貨車 0.131 kg CO₂e/延噸公里</b>：環境部產品碳足跡資訊網（第三方轉述，請以資料庫原值複核）</li>
-    <li><b>老屋逾 550 萬戶、好好拆／做／用</b>：環境部「循環之城」，經濟日報 2026/04/07</li>
-  </ol>
-  <aside class="notes">本章所有數字的出處都在這一頁，有人問可以直接翻到這裡。標「試算」的是用官方總量自行換算，不是官方公布值。</aside>
-</section>
-
-
 <section class="slide dark chapter" id="ch5" data-ch="5" data-title="第五章｜土石方資源化">
   <img class="bg" src="img/image78.jpg" alt=""><div class="veil"></div>
   <div class="cn rise">05</div>
@@ -1329,42 +1319,35 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
 三，用試驗與規範確認再生材料是否適用於指定用途。</aside>
 </section>
 
-<section class="slide" data-ch="7" data-steps="3" data-title="本案實例三數據">
-  <div class="hd"><div class="eyebrow">結語</div><h2>本案實例三數據</h2></div>
-  <div class="recall" data-recall>
-    <button class="rc"><div class="in" style="height:100%">
-      <div class="fc"><span class="q">B5 類土石方<br>再利用了多少？</span><span class="mark">?</span></div>
-      <div class="bc"><div class="big">100<small>%</small></div><div class="lbl">B5 類土石方再利用</div><div class="sub">11,973 m³ 全數加工為再生機制砂</div></div>
-    </div></button>
-    <button class="rc"><div class="in" style="height:100%">
-      <div class="fc"><span class="q">回到本案工地的<br>再生砂有多少？</span><span class="mark">?</span></div>
-      <div class="bc"><div class="big">5,537<small>噸</small></div><div class="lbl">再生砂回到本案工地</div><div class="sub">排樁 4,559 噸＋假設工程 978 噸</div></div>
-    </div></button>
-    <button class="rc"><div class="in" style="height:100%">
-      <div class="fc"><span class="q">預估最後需要<br>焚化的有多少？</span><span class="mark">?</span></div>
-      <div class="bc"><div class="big">38.9<small>噸</small></div><div class="lbl">預估最終需焚化</div><div class="sub">一般拆除約 114.3 噸；約占總重 0.12%</div></div>
-    </div></button>
-  </div>
-  <div class="key"><b>重點</b>100%・5,537 噸・38.9 噸：拆除物可以回到工程裡</div>
-  <aside class="notes">最後整理本案實例的三個數據（逐一翻牌）：
-100%、5,537 噸、38.9 噸。謝謝大家記住它們。</aside>
-</section>
-
-
 <section class="slide dark" id="s-end" data-ch="7" data-title="感謝聆聽">
   <img class="bg" src="img/image1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16">
   <h2 class="rise" style="position:relative">感謝聆聽與交流</h2>
   <p class="sub rise d1" style="position:relative">攜手邁向營建淨零未來。</p>
   <button class="refbtn rise d2" data-refs style="position:relative">主要參考資料</button>
   <div class="refs" style="position:relative">
-    <a href="https://www.nlma.gov.tw/ch/legislation/law%26regusw/9" target="_blank" rel="noopener">內政部國土管理署｜營建剩餘土石方處理方案</a>
-    <a href="https://www.moi.gov.tw/News_toggle3.aspx?_CSN=1637&amp;n=8365&amp;sms=9015" target="_blank" rel="noopener">內政部／國土管理署｜營建剩餘土石方定義與申報</a>
-    <a href="https://www.dbaweb.tcg.gov.tw/TempRules/rules/front/Rule_show.aspx?entry=344" target="_blank" rel="noopener">臺北市法規｜營建剩餘資源分類及處理定義</a>
-    <a href="https://www.fengyu.com.tw/news-detail/0/67" target="_blank" rel="noopener">豐譽營造｜疾管署工程案例與資源化成果</a>
-    <a href="https://www.fengyu.com.tw/news-detail/0/76" target="_blank" rel="noopener">豐譽營造｜精細拆除實務說明</a>
+    <div class="rg"><h4>本案與法規</h4>
+      <a href="https://www.nlma.gov.tw/ch/legislation/law%26regusw/9" target="_blank" rel="noopener">內政部國土管理署｜營建剩餘土石方處理方案</a>
+      <a href="https://www.moi.gov.tw/News_toggle3.aspx?_CSN=1637&amp;n=8365&amp;sms=9015" target="_blank" rel="noopener">內政部／國土管理署｜營建剩餘土石方定義與申報</a>
+      <a href="https://www.dbaweb.tcg.gov.tw/TempRules/rules/front/Rule_show.aspx?entry=344" target="_blank" rel="noopener">臺北市法規｜營建剩餘資源分類及處理定義</a>
+      <a href="https://www.fengyu.com.tw/news-detail/0/67" target="_blank" rel="noopener">豐譽營造｜疾管署工程案例與資源化成果</a>
+      <a href="https://www.fengyu.com.tw/news-detail/0/76" target="_blank" rel="noopener">豐譽營造｜精細拆除實務說明</a>
+    </div>
+    <div class="rg"><h4>第四章｜城市是座礦山 數據出處</h4><ol>
+      <li><b>營建剩餘土石方 104–113 年、需填埋約 25%</b>：內政部國土管理署、環境部〈營建土石方與廢棄物全方位介紹〉（行政院院會資料）；營建剩餘土石方資訊服務中心〈管理政策與申報勾稽作業〉113/12</li>
+      <li><b>B5 約 350 萬噸、占 6 成、多用於填海回填、結構重量 95%</b>：內政部及環境部統計，中央社〈促建材循環 環境部推營建土石方精準分類再利用〉2025/12/16</li>
+      <li><b>拆除執照 113 年 2,289 件、1,907,940 m²</b>：內政部統計年報・建築管理（國土管理署）</li>
+      <li><b>拆除廢棄物參考係數 RC 住宅 0.822 m³/m²</b>：環境部〈營造業及建築拆除業事業廢棄物清理計畫書參考例〉表 1</li>
+      <li><b>112 年砂石需求 7,249 萬噸、供應結構</b>：經濟部地質調查及礦業管理中心〈112 年度砂土石產銷調查報告〉表 2-1、2-4、2-7</li>
+      <li><b>南砂北運、東砂北運</b>：地礦中心〈砂石開發供應政策評估說明書〉公聽會簡報 112/10/19</li>
+      <li><b>預拌混凝土年量 4,000–4,200 萬 m³</b>：台灣區預拌混凝土工業同業公會，工商時報 2025/07/15</li>
+      <li><b>再生骨材生產階段減碳</b>：內政部建築研究所 99 年研究；<b>處理廠實廠 35.7 kg CO₂e/噸</b>：陳起鳳、黃仁志，CEITA 2025/04</li>
+      <li><b>營業大貨車 0.131 kg CO₂e/延噸公里</b>：環境部產品碳足跡資訊網（第三方轉述，請以資料庫原值複核）</li>
+      <li><b>老屋逾 550 萬戶、好好拆／做／用</b>：環境部「循環之城」，經濟日報 2026/04/07</li>
+    </ol></div>
     <span class="warn">所有性能判定依適用規範及設計文件。</span>
   </div>
-  <aside class="notes">謝謝大家。歡迎提問；需要回到某一頁時，按 G 開目錄直接跳。</aside>
+  <aside class="notes">謝謝大家。歡迎提問；需要回到某一頁時，按 G 開目錄直接跳。
+點「主要參考資料」可展開全部出處，包含第四章全台數據的來源；標「試算」的是用官方總量自行換算，不是官方公布值。</aside>
 </section>
 
 <section class="slide" data-ch="7" data-title="現場紀錄影片">
