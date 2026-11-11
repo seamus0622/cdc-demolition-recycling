@@ -464,6 +464,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .yr.s2 .b.d .bar{background:#C9D5CB}
 .yr.s2 .b.d .ex{opacity:1}
 .yr.s2 .b.y104{opacity:.45}
+.yr.nofx *,.yr.nofx{transition:none!important}
 .hcalc{flex-direction:row!important;align-items:center;gap:28px!important;padding:22px 30px!important;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
 .hcalc.on{opacity:1;transform:none}
 .hcalc .l{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -1603,10 +1604,13 @@ $$('[data-checks]').forEach(c=>{const s=c.closest('.slide');const items=$$('.ck'
     const setH=(b,i,on)=>{b.querySelector('.bar').style.height=on?(V[i]*K)+'px':'0';b.classList.toggle('up',on)};
     function grow(instant){timers.forEach(clearTimeout);timers=[];
       if(instant||window.__noanim){bs.forEach((b,i)=>{b.querySelector('.bar').style.transition='none';setH(b,i,true);b.offsetHeight;b.querySelector('.bar').style.transition=''});return}
-      bs.forEach((b,i)=>setH(b,i,false));
+      reset();
       bs.forEach((b,i)=>timers.push(setTimeout(()=>{b.querySelector('.bar').style.height=(V[i]*K)+'px';timers.push(setTimeout(()=>b.classList.add('up'),650))},300+i*420)));}
-    function curve(on){if(!path)return;path.style.transition=window.__noanim?'none':'';path.style.strokeDashoffset=on?0:len}
-    s.addEventListener('enter',()=>{layout();grow(step>0)});
+    function reset(){bs.forEach((b,i)=>{const br=b.querySelector('.bar'),v=b.querySelector('.v');br.style.transition=v.style.transition='none';setH(b,i,false)});
+      yr.classList.add('nofx');yr.classList.remove('s1','s2');yr.offsetHeight;bs.forEach(b=>{b.querySelector('.bar').style.transition=b.querySelector('.v').style.transition=''});yr.classList.remove('nofx')}
+    function curve(on){if(!path)return;path.style.transition=(window.__noanim||!on)?'none':'';path.style.strokeDashoffset=on?0:len}
+    s.addEventListener('enter',()=>{layout();delete yr.dataset.grown;if(step>0)grow(true);else{timers.forEach(clearTimeout);reset()}});
+    s.addEventListener('step',e=>{if(e.detail===0&&!yr.dataset.grown){yr.dataset.grown=1;grow(false)}});
     s.addEventListener('step',e=>{const k=e.detail;if(k>=1)grow(true);yr.classList.toggle('s1',k>=1);yr.classList.toggle('s2',k>=2);curve(k>=1)});
   }
   const B5=350e4,RMC=4100e4,SAND=0.87;
