@@ -453,7 +453,7 @@ h2{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1.18;
 .yr.s1 .b.k .bar{background:var(--forest-2)}
 .yr.s1 .b.k .v{color:var(--forest);font-size:36px}
 .yr .grow{position:absolute;left:12%;right:4%;top:2px;display:flex;align-items:center;gap:14px;justify-content:flex-end;font-size:30px;font-weight:900;color:var(--brick);opacity:0;transition:opacity .6s;z-index:3}
-.yr.s1 .grow{opacity:1}
+.yr.s2 .grow{opacity:1}
 .yr svg.curve{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
 .yr svg.curve path{fill:none;stroke:var(--brick);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;transition:stroke-dashoffset 1.6s ease-in-out}
 .yr svg.curve circle{fill:var(--brick);stroke:var(--ground);stroke-width:3;opacity:0;transition:opacity .3s}
@@ -896,7 +896,7 @@ PVC 地磚：送潔安環保造粒。
   <div class="hd"><div class="eyebrow">第四章｜城市是座礦山</div><h2>全台每年產出約 4,000 萬方營建剩餘土石方</h2></div>
   <div class="body">
     <div class="col" style="width:1080px;flex:none;gap:60px">
-      <div class="yr" data-yr="2744,2481,2707,3018,3830,4328,4634,4300,4172,4354" data-y0="104" data-base="1"><div class="grow">105 → 113 年　成長 75%</div><svg class="curve" aria-hidden="true"></svg><div class="bl"><span>105 年基準 2,481</span></div></div>
+      <div class="yr" data-yr="2744,2481,2707,3018,3830,4328,4634,4300,4172,4354" data-y0="104" data-base="1"><div class="grow">105 → 113 年　增加 75%</div><svg class="curve" aria-hidden="true"></svg><div class="bl"><span>105 年基準 2,481</span></div></div>
       <p class="src" style="margin-top:6px">單位：萬立方公尺（民國年）｜資料：內政部國土管理署、環境部〈營建土石方與廢棄物全方位介紹〉簡報</p>
     </div>
     <div class="col grow" style="gap:22px;justify-content:center">
@@ -908,7 +908,7 @@ PVC 地磚：送潔安環保造粒。
   <div class="key"><b>重點</b>土方年年增加，其中廢磚、混凝土塊是最難去化、只能填埋的一類</div>
   <aside class="notes">先看全台的量（進到這頁，柱子會一年一年長出來）。國土管理署的統計，104 到 113 年的營建剩餘土石方。
 （按一下）成長曲線：從 105 年的 2,481 萬方，一路增加到 113 年的 4,354 萬方，110 年最高 4,634 萬方，近五年平均每年大約 4,300 多萬方。
-（再按一下）以 105 年為基準線，每根柱子上方金色的部分，就是比 105 年多出來的量；到 113 年多了 1,873 萬方，成長 75%。
+（再按一下）以 105 年為基準線，每根柱子上方金色的部分，就是比 105 年多出來的量；到 113 年多了 1,873 萬方，增加 75%。
 （再按一下）國土署的簡報也提到，這些土方裡大約四分之一、約 1,000 萬方需要找地方填埋，裡面就包括廢磚和混凝土塊。這就是我們今天講的 B5。
 補充：這 4,000 多萬方大部分是工程開挖的土，拆除產生的磚塊混凝土塊下一頁分開看。</aside>
 </section>
@@ -1269,13 +1269,13 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
 加起來 5,537 噸，折合純砂 3,316 m³，全部回到本案工地。</aside>
 </section>
 
-<section class="slide" data-ch="6" data-steps="3" data-title="277 車次">
+<section class="slide" data-ch="6" data-steps="2" data-title="277 車次">
   <div class="hd"><div class="eyebrow">第六章｜CDC 實例</div><h2>少開採 5,537 噸天然砂，少跑 277 趟砂石車</h2></div>
   <div class="body">
     <div class="col" style="width:1000px;flex:none;gap:22px">
       <div class="trucks" data-trucks></div>
       <div style="display:flex;align-items:baseline;gap:16px"><span class="num" style="font-size:120px;line-height:.9;color:var(--forest)" data-truckn>0</span><span style="font-size:34px;font-weight:900">車次砂石車長途運輸，直接省下</span></div>
-      <div class="calc hcalc" data-f="3" data-carbon2>
+      <div class="calc hcalc" data-carbon2>
         <div class="l">
           <span style="font-size:26px;font-weight:900;color:var(--ochre-soft)">運輸減碳試算（沿用「減碳在哪裡」的算法）</span>
           <span class="f">5,537 噸 × <span data-d2>100</span> km × 0.131 kg／延噸公里</span>
@@ -1296,8 +1296,8 @@ TCLP 溶出試驗 7 項重金屬未檢出、EN 71-3 歐盟玩具等級的有毒�
   </div>
   <div class="key"><b>重點</b>資源循環同時減少開採、運輸與碳排</div>
   <aside class="notes">（按一下）每一個小卡車代表一趟砂石車。如果用傳統方式，要另外開採購買 5,537 噸天然河砂，增加約 277 車次長途運輸；本案直接省下。
-（再按一下）三個比率：預壘樁與假設工程的天然細骨材 100% 被置換；循環再生的工程體積占 B5 總量 36.4%；實際提煉回工地的純砂占 27.7%。
-（再按一下）少跑的車換算成碳：沿用第四章「減碳在哪裡」的算法，噸數 × 運距 × 大貨車係數 0.131 kg CO₂e／延噸公里。5,537 噸再生砂，如果比天然砂少跑 100 公里，約少排 72.5 噸 CO₂e，平均每趟砂石車約 262 公斤。運距是假設值，可以現場拖動調整；係數為第三方轉述值，正式引用前請以碳足跡資料庫原值複核。</aside>
+車子跑完，下方自動跳出運輸減碳試算：沿用第四章「減碳在哪裡」的算法，噸數 × 運距 × 大貨車係數 0.131 kg CO₂e／延噸公里。5,537 噸再生砂，如果比天然砂少跑 100 公里，約少排 72.5 噸 CO₂e，平均每趟砂石車約 262 公斤。運距是假設值，可以現場拖動調整；係數為第三方轉述值，正式引用前請以碳足跡資料庫原值複核。
+（再按一下）三個比率：預壘樁與假設工程的天然細骨材 100% 被置換；循環再生的工程體積占 B5 總量 36.4%；實際提煉回工地的純砂占 27.7%。</aside>
 </section>
 
 <section class="slide" data-ch="6" data-title="成本與 ESG">
@@ -1578,8 +1578,9 @@ $$('[data-checks]').forEach(c=>{const s=c.closest('.slide');const items=$$('.ck'
   const ts=$$('svg',box),n=$('[data-truckn]',s);let timer;
   s.addEventListener('step',e=>{clearInterval(timer);const k=e.detail;
     if(k>=1){box.classList.add('go');let i=ts.filter(t=>t.classList.contains('lit')).length;
-      if(i<277)timer=setInterval(()=>{for(let j=0;j<7&&i<277;j++,i++)ts[i].classList.add('lit');n.textContent=i;if(i>=277)clearInterval(timer)},16);else n.textContent=277}
-    else{box.classList.remove('go');ts.forEach(t=>t.classList.remove('lit'));n.textContent=0}
+      const k2=$('[data-carbon2]',s);
+      if(i<277)timer=setInterval(()=>{for(let j=0;j<7&&i<277;j++,i++)ts[i].classList.add('lit');n.textContent=i;if(i>=277){clearInterval(timer);if(k2)k2.classList.add('on')}},16);else{n.textContent=277;if(k2)k2.classList.add('on')}}
+    else{box.classList.remove('go');ts.forEach(t=>t.classList.remove('lit'));n.textContent=0;const k2=$('[data-carbon2]',s);if(k2)k2.classList.remove('on')}
     $$('[data-ratios] .track div',s).forEach(d=>d.style.width=k>=2?d.dataset.w+'%':'0')});
 })();
 
